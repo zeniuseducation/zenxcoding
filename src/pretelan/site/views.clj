@@ -18,6 +18,12 @@
 																	 {:url "/problems" :title "Problems"}]})))
 
 (defn login
-	[]
-	(view/render (res "login.html")))
+	([]
+	 (view/render (res "login.html")
+								{:title "Login dulu dong"
+								 :message "Attempting login in..."}))
+	([message]
+	 (view/render (res "login.html")
+								{:title "Login pluuisss"
+								 :message message})))
 
