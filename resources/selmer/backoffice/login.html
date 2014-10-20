@@ -1,0 +1,16 @@
+{% extends "selmer/backoffice/base.html" %}
+
+{% block foo %}
+		<div class="medium-12 columns">
+			<br/><br/><br/>
+
+			<form action="/backoffice/login-act" method="post" class="medium-5 columns medium-centered">
+				<fieldset>
+					<legend>Login form</legend>
+					<input type="text" placeholder="username" name="admin"/>
+					<input type="password" name="password"/>
+					<button class="small right">Login</button>
+				</fieldset>
+			</form>
+		</div>
+{% endblock %}

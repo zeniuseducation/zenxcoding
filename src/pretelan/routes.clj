@@ -1,10 +1,12 @@
 (ns pretelan.routes
-  (:require [compojure.core :refer :all]
+	(:require [compojure.core :refer :all]
 						[noir.response :as resp]
 						[noir.session :as sess]
 						[noir.cookies :as cook]
-						[pretelan.backoffice.ctrl :as bo]
-						[pretelan.site.ctrl :as home]))
+						[pretelan.backoffice.ctrl :as boctrl]
+						[pretelan.backoffice.views :as bopage]
+						[pretelan.site.views :as page]
+						[pretelan.site.ctrl :as ctrl]))
 
 (defn valid-admin?
 	"Check whether the certain user is valid for admin access"
@@ -15,28 +17,43 @@
 	 (= admin "zenius")))
 
 (def home
-  (context "/" request
+	(context "/" request
 					 (GET "/" request
-								"You ain't nothing to see here!!!")))
+								(if-let [user (ctrl/valid-user (sess/get :user))]
+									(page/home user)
+									(page/home)))
+					 (GET "/login" request
+								(page/login))
+					 (POST "/login-act" request
+								 (let [{:keys [username password]} (:params request)]
+									 (if (ctrl/valid-user username password)
+										 (do (sess/put! :user username)
+												 (resp/redirect "/dashboard"))
+										 (page/login "Wow sorry bro, username and password ngaco ;)"))))
+					 (GET "/dashboard" request
+								(page/home))))
 
 (def backoffice
 	(context "/backoffice" request
 					 (GET "/" request
-								(if-let [admin (sess/get :admin)]
-									(resp/redirect "/home")
-									(resp/redirect "/login")))
+								(if (sess/get :admin)
+									(resp/redirect "/backoffice/home")
+									(resp/redirect "/backoffice/login")))
 					 (GET "/login" request
-								(bo/login "Login dulu bro!"))
+								(bopage/login "Login dulu bro!"))
 					 (POST "/login-act" request
 								 (let [{:keys [admin password]} (:params request)]
 									 (if (valid-admin? admin password)
 										 (do (sess/put! :admin admin)
-												 (resp/redirect "/home"))
-										 (bo/login "Your credential is questionable"))))
+												 (resp/redirect "/backoffice/home"))
+										 (bopage/login "Your credential is questionable"))))
+					 (GET "/logout" request
+								(do (sess/clear!)
+										(resp/redirect "/backoffice")))
 					 (GET "/home" request
 								(if (valid-admin? (sess/get :admin))
-									(bo/home "Get your ass to work!!")
-									(bo/login "fook dude, you've got no valid username")))))
+									(bopage/home "Get your ass to work!!")
+									(bopage/login "fook dude, you've got no valid username")))))
 
 
 

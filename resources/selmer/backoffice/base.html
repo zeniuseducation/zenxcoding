@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+	<link href="/assets/normalize.css" rel="stylesheet"/>
+	<link href="/assets/foundation.min.css" rel="stylesheet"/>
+	<link href="/css/main-style.css" rel="stylesheet"/>
+	<script type="text/javascript">
+		window.MathJax = {
+			tex2jax: {
+				inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+				processEscapes: false
+			}
+		};
+	</script>
+	<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML"></script>
+	<meta charset="UTF-8"/>
+	<title>
+		{{title}}
+	</title>
+
+</head>
+<body class="row">
+<header class="zpanel2">
+	<h1>
+		{{headline}}
+	</h1>
+	<h4 id="subtitle">
+	</h4>
+	<a href="/backoffice/logout">Logout | </a>
+	<a href="/backoffice/something">Something else | </a>
+</header>
+<footer>
+
+	{% block foo %}
+	{% endblock %}
+
+</footer>
+
+
+
+</body>
+</html>
