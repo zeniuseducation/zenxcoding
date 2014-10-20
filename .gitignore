@@ -1,0 +1,7 @@
+/.idea
+config.edn
+*.iml
+.lein-env
+*.css
+*.scss
+*.js
