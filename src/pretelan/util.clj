@@ -6,6 +6,6 @@
 (defn md->html
   "reads a markdown file from public/md and returns an HTML string"
   [filename]
-  (md/md-to-html-string (io/slurp-resource filename)))
+  (md/md-to-html-string (slurp filename)))
 
 

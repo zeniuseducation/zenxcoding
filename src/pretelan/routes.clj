@@ -17,11 +17,13 @@
 	 (= admin "zenius")))
 
 (def home
-	(context "/" request
+	(context "" request
 					 (GET "/" request
 								(if-let [user (ctrl/valid-user (sess/get :user))]
 									(page/home user)
 									(page/home)))
+					 (GET "/testmd" []
+								(page/testmd))
 					 (GET "/login" request
 								(page/login))
 					 (POST "/login-act" request

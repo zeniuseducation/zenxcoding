@@ -1,7 +1,11 @@
 (ns pretelan.site.views
-	(:require [pretelan.layout :as view]))
+	(:require [pretelan.layout :as view]
+						[pretelan.util :refer [md->html]]
+						[pretelan.soal.ctrl :refer [soal]]))
 
-(def dir "/mainpages/")
+(def dir "mainpages/")
+
+"this is a test"
 
 (defn res [fname] (str dir fname))
 
@@ -26,4 +30,10 @@
 	 (view/render (res "login.html")
 								{:title "Login pluuisss"
 								 :message message})))
+
+(defn testmd
+	[]
+	(view/render (res "home.html")
+							 {:soal (soal "one.html")
+							 :mereka "welldome"}))
 
