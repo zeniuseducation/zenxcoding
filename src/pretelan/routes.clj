@@ -22,17 +22,18 @@
 								(if-let [user (ctrl/valid-user (sess/get :user))]
 									(page/home user)
 									(page/home)))
-					 (GET "/testmd" []
-								(page/testmd))
 					 (GET "/login" request
 								(page/login))
 					 (POST "/login-act" request
 								 (let [{:keys [username password]} (:params request)]
+									 (str "Welcome " username "!")))
+					 (POST "/loginac" request
+								 (let [{:keys [username password]} (:params request)]
 									 (if (ctrl/valid-user username password)
 										 (do (sess/put! :user username)
-												 (resp/redirect "/dashboard"))
+												 (resp/redirect "/account"))
 										 (page/login "Wow sorry bro, username and password ngaco ;)"))))
-					 (GET "/dashboard" request
+					 (GET "/account" request
 								(page/home))))
 
 (def backoffice

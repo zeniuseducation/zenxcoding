@@ -11,29 +11,35 @@
 
 (defn home
 	([] (view/render (res "home.html")
-									 {:title "Welcome to zencoding"
-									  :headline "Welcome to zencoding"
-									  :nav-links [{:url "/login" :title "Lojeen | "}
-																{:url "/signup" :title "Sign-up"}]}))
+									 {:title "Otak booster category 5"
+										:links [{:url "/tutorials" :name "Tutorials"}
+														{:url "/problems" :name "Problems"}
+														{:url "/ranks" :name "Ranks"}
+														{:url "/login" :name "Lojeen"}
+														{:url "/signup" :name "Sign-up"}]}))
 	([user] (view/render (res "home.html")
 											 {:title (str "Welcome " user " to zencoding")
-											  :headline (str "Welcome " user " to zencoding")
-											 :nav-links [{:url "/logout" :title "Logout | "}
-																	 {:url "/problems" :title "Problems"}]})))
+												:message (str "Welcome " user)
+												:links [{:url "/tutorials" :name "Tutorials"}
+																{:url "/problems" :name "Problems"}
+																{:url "/ranks" :name "Ranks"}
+																{:url "/account" :name "Account"}
+																{:url "/logout" :name "Logout"}]})))
 
 (defn login
 	([]
 	 (view/render (res "login.html")
-								{:title "Login dulu dong"
-								 :message "Attempting login in..."}))
+								{:title   "Login dulu dong"
+								 :message "Attempting  login in..."
+								 :links   [{:url "/tutorials" :name "Tutorials"}
+													 {:url "/problems" :name "Problems"}
+													 {:url "/ranks" :name "Ranks"}
+													 {:url "/login" :name "Lojeen"}
+													 {:url "/signup" :name "Sign-up"}]}))
 	([message]
 	 (view/render (res "login.html")
 								{:title "Login pluuisss"
 								 :message message})))
 
-(defn testmd
-	[]
-	(view/render (res "home.html")
-							 {:soal (soal "one.html")
-							 :mereka "welldome"}))
+
 
