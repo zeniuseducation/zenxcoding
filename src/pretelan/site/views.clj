@@ -5,13 +5,12 @@
 
 (def dir "mainpages/")
 
-"this is a test"
-
 (defn res [fname] (str dir fname))
 
 (defn home
 	([] (view/render (res "home.html")
 									 {:title "Otak booster category 5"
+										:page "home"
 										:links [{:url "/tutorials" :name "Tutorials"}
 														{:url "/problems" :name "Problems"}
 														{:url "/ranks" :name "Ranks"}
@@ -30,6 +29,7 @@
 	([]
 	 (view/render (res "login.html")
 								{:title   "Login dulu dong"
+								 :page "login"
 								 :message "Attempting  login in..."
 								 :links   [{:url "/tutorials" :name "Tutorials"}
 													 {:url "/problems" :name "Problems"}
