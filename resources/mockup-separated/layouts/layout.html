@@ -13,22 +13,21 @@
     <link rel="stylesheet" href="/css/normalize.css">
     <link rel="stylesheet" href="/css/foundation.css">
     <link rel="stylesheet" href="/css/style.css">
-
-    <!--this is where the file scripts.html applied-->
+    <!--this is where scripts.html is applied-->
     <%= partial 'scripts' %>
     <!---->
   </head>
   
   <body class="<%= page_classes %>">
-    <!--this is where the file header.html applied-->
+    <!--this is where header.html is applied-->
     <%= partial 'header' %>
     <!---->
-    <!--this is where the contents(index.html, problems.html, etc) applied-->
-    <div class="contents">    
+    <!--this is where contents (index.html, sign-up.html, etc) is applied-->
+    <div class="contents">
     <%= yield %>
     </div>
     <!---->
-    <!--this is where the file footer.html applied-->
+    <!--this is where footer.html is applied-->
     <%= partial 'footer' %>
     <!---->
   </body>
