@@ -19,8 +19,8 @@
 (def home
 	(context "" request
 					 (GET "/" request
-								(if-let [user (ctrl/valid-user (sess/get :user))]
-									(page/home user)
+								(if-let [user (sess/get :user)]
+									(page/home (ctrl/valid-user user))
 									(page/home)))
 					 (GET "/login" request
 								(page/login))

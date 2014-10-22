@@ -44,7 +44,7 @@
 								:id          "userPassword"
 								:on-change   #(reset! password (-> % .-target .-value))
 								:placeholder "password"}]
-			 [:button {:class    "small right"
+			 [:button {:class    "small right radius"
 								 :id       "loginButton"
 								 :on-click #(login-act @email @password)}
 				"Login"]])))
