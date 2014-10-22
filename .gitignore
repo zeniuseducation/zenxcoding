@@ -2,7 +2,8 @@
 config.edn
 *.iml
 .lein-env
-
 *.scss
-
+*.js
 *.log
+/target
+.nrepl-port
