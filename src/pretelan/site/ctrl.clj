@@ -8,14 +8,24 @@
 
 (defn compare-user
 	[username password]
-	(let [user-data (:value (first (cl/get-view cdb "user" "byUsername" {:key username})))]
-		(crip/compare password (:password user-data))))
+	(if-let [user-data (->> {:key username}
+													(cl/get-view
+														cdb
+														"user"
+														"byUsername")
+													(first)
+													:value)]
+		(crip/compare password (:password user-data))
+		false))
 
 (defn valid-user
 	([username password]
 	 (compare-user username password))
 	([user]
-	 (if (:value (first (cl/get-view cdb "user" "byUsername" {:key user})))
+	 (if (->> {:key user}
+						(cl/get-view cdb "user" "byUsername")
+						(first)
+						:value)
 		 user
 		 nil))
 	([] nil))
