@@ -1,5 +1,6 @@
 (ns pretelan.dbase
-	(:require [cemerick.url :as curl]))
+	(:require [cemerick.url :as curl]
+						[com.ashafa.clutch :as cl]))
 
 (defn config
 	[]
@@ -15,5 +16,17 @@
 			:password password)))
 
 (def quest "databasename")
+
+(defn get-zenid
+	[cdb ztype]
+	(let [old-data (->> {:key ztype}
+											(cl/get-view cdb "zenid" "byZtype")
+											(first)
+											(:value))
+				counter (:counter old-data)]
+		(do (->> (inc counter)
+						 (assoc old-data :counter)
+						 (cl/put-document cdb))
+				(inc counter))))
 
 

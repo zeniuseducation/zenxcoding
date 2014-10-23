@@ -16,7 +16,7 @@
 	([admin]
 	 (= admin "zenius")))
 
-(defroutes home
+(def home
 	(context "" request
 					 (GET "/" request
 								(if (sess/get :email)
@@ -45,22 +45,23 @@
 										 (do (cook/put! :email email)
 												 (sess/put! :email email)
 												 (sess/put! :username username)
-												 {:status true
-												  :message "May the codes be with you..."})
-										 (resp/json {:status false
-																 :message "Email doesnt exist or wrong password"}))))
+												 (resp/edn {:status  true
+																		:message "May the codes be with you..."}))
+										 (resp/edn {:status false
+																:message "Email doesnt exist or wrong password"}))))
 					 (POST "/signup-act" request
-								 (let [{:keys [username email password nama twitter languages]}
+								 (let [{:keys [username email  password nama twitter languages]}
 											 (:params request)]
 									 (if (user/exists? email)
-										 (resp/json {:status false :message "Email already used"})
-										 (do (user/sign-up {:username  username
+										 (resp/edn {:status false :message "Email already used"})
+										 (do (println (:params request))
+												 (user/sign-up {:username  username
 																				:email     email
 																				:nama      nama
 																				:twitter   twitter
 																				:languages languages
 																				:password  password})
-												 (resp/json {:status true :message "Welcome to Zenius League!!"})))))))
+												 (resp/edn {:status true :message "Welcome to Zenius League!!"})))))))
 
 (def backoffice
 	(context "/backoffice" request

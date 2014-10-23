@@ -12,12 +12,12 @@
 
 (defn login-callback
 	[response]
-	(.alert js/window response))
+	(.alert js/window (:message response)))
 
 (defn login-act
-	[username password]
+	[email password]
 	(POST "/login-act"
-				{:params  {:username username :password password}
+				{:params  {:email email :password password}
 				 :handler login-callback}))
 
 (defn login-form
@@ -44,10 +44,10 @@
 				"Login"]])))
 
 (defn signup-callback
-	[resp]
-	(if (:status resp)
-		(.alert js/window "Hurrayy you're now part of us")
-		(.alert js/window (:message resp))))
+	[response]
+	(if (:status response)
+		(.alert js/window (:message response))
+		(.alert js/window (:message response))))
 
 (defn signup-act
 	[user-map]

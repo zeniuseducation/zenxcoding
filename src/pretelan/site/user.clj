@@ -1,10 +1,10 @@
 (ns pretelan.site.user
-	(:require [pretelan.dbase :as db]
+	(:require [pretelan.dbase :as db :refer [get-zenid make-couch]]
 						[pretelan.site.views :as page]
 						[noir.util.crypt :as crip]
 						[com.ashafa.clutch :as cl]))
 
-(def ^:private cdb (db/make-couch :cloudant-production))
+(def ^:private cdb (make-couch :cloudant-production))
 
 (defn get-user
 	"When called with one arg, it returns a user with a unique email, when called with two arguments it takes n (or
@@ -39,10 +39,13 @@
 
 (defn sign-up
 	[user-map]
-	(->> {:user-id (get-zenid-id cdb :user)}
+	(->> {:user-id (get-zenid cdb "user")
+			  :password (crip/encrypt (:password user-map))
+			  :type "user"}
 			 (merge user-map)
 			 (cl/put-document cdb)))
 
 (defn exists?
 	[email]
-	(empty? (get-user email)))
+	(not (empty? (get-user email))))
+

@@ -32,6 +32,12 @@
 												:message (str "Welcome " user)
 												:links member-links})))
 
+(defn account
+	[username email]
+	(view/render (res "home.html")
+							 {:page "home"
+							  :links member-links}))
+
 (defn login
 	[]
 	(view/render (res "login.html")
