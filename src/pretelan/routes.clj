@@ -6,7 +6,7 @@
 						[pretelan.backoffice.ctrl :as boctrl]
 						[pretelan.backoffice.views :as bopage]
 						[pretelan.site.views :as page]
-						[pretelan.site.ctrl :as ctrl]))
+						[pretelan.site.user :as user]))
 
 (defn valid-admin?
 	"Check whether the certain user is valid for admin access"
@@ -16,25 +16,51 @@
 	([admin]
 	 (= admin "zenius")))
 
-(def home
+(defroutes home
 	(context "" request
 					 (GET "/" request
-								(if-let [user (sess/get :user)]
-									(page/home (ctrl/valid-user user))
-									(page/home)))
+								(if (sess/get :email)
+									(page/home (sess/get :username))
+									(if-let [email (cook/get :email)]
+										(let [{:keys [username email]}
+													(user/get-user email)]
+											(do (sess/put! :email email)
+													(sess/put! :username username)
+													(page/home username)))
+										(page/home))))
 					 (GET "/login" request
 								(page/login))
-					 (POST "/login-act" request
-								 (let [{:keys [username password]} (:params request)]
-									 (str "Welcome " username "!")))
-					 (POST "/loginac" request
-								 (let [{:keys [username password]} (:params request)]
-									 (if (ctrl/valid-user username password)
-										 (do (sess/put! :user username)
-												 (resp/redirect "/account"))
-										 (page/login "Wow sorry bro, username and password ngaco ;)"))))
+					 (GET "/signup" request
+								(page/sign-up))
+					 (GET "/logout" request
+								(do (sess/clear!)
+										(resp/redirect "/")))
 					 (GET "/account" request
-								(page/home))))
+								(page/account (sess/get :username)))
+					 (POST "/login-act" request
+								 (let [{:keys [email password]}
+											 (:params request)]
+									 (if-let [{:keys [email username]}
+														(user/valid email password)]
+										 (do (cook/put! :email email)
+												 (sess/put! :email email)
+												 (sess/put! :username username)
+												 {:status true
+												  :message "May the codes be with you..."})
+										 (resp/json {:status false
+																 :message "Email doesnt exist or wrong password"}))))
+					 (POST "/signup-act" request
+								 (let [{:keys [username email password nama twitter languages]}
+											 (:params request)]
+									 (if (user/exists? email)
+										 (resp/json {:status false :message "Email already used"})
+										 (do (user/sign-up {:username  username
+																				:email     email
+																				:nama      nama
+																				:twitter   twitter
+																				:languages languages
+																				:password  password})
+												 (resp/json {:status true :message "Welcome to Zenius League!!"})))))))
 
 (def backoffice
 	(context "/backoffice" request

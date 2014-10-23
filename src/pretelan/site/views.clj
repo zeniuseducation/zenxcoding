@@ -3,7 +3,21 @@
 						[pretelan.util :refer [md->html]]
 						[pretelan.soal.ctrl :refer [soal]]))
 
-(def dir "mainpages/")
+(def ^:private guest-links
+	[{:url "/tutorials" :name "Tutorials"}
+	 {:url "/problems" :name "Problems"}
+	 {:url "/ranks" :name "Ranks"}
+	 {:url "/login" :name "Lojeen"}
+	 {:url "/signup" :name "Sign-up"}])
+
+(def ^:private member-links
+	[{:url "/tutorials" :name "Tutorials"}
+	 {:url "/problems" :name "Problems"}
+	 {:url "/ranks" :name "Ranks"}
+	 {:url "/account" :name "Account"}
+	 {:url "/logout" :name "Logout"}])
+
+(def ^:private dir "mainpages/")
 
 (defn res [fname] (str dir fname))
 
@@ -11,35 +25,29 @@
 	([] (view/render (res "home.html")
 									 {:title "Otak booster category 5"
 										:page "home"
-										:links [{:url "/tutorials" :name "Tutorials"}
-														{:url "/problems" :name "Problems"}
-														{:url "/ranks" :name "Ranks"}
-														{:url "/login" :name "Lojeen"}
-														{:url "/signup" :name "Sign-up"}]}))
+										:links guest-links}))
 	([user] (view/render (res "home.html")
 											 {:title (str "Welcome " user " to zencoding")
+												:page "home"
 												:message (str "Welcome " user)
-												:links [{:url "/tutorials" :name "Tutorials"}
-																{:url "/problems" :name "Problems"}
-																{:url "/ranks" :name "Ranks"}
-																{:url "/account" :name "Account"}
-																{:url "/logout" :name "Logout"}]})))
+												:links member-links})))
 
 (defn login
-	([]
-	 (view/render (res "login.html")
-								{:title   "Login dulu dong"
-								 :page "login"
-								 :message "Attempting  login in..."
-								 :links   [{:url "/tutorials" :name "Tutorials"}
-													 {:url "/problems" :name "Problems"}
-													 {:url "/ranks" :name "Ranks"}
-													 {:url "/login" :name "Lojeen"}
-													 {:url "/signup" :name "Sign-up"}]}))
-	([message]
-	 (view/render (res "login.html")
-								{:title "Login pluuisss"
-								 :message message})))
+	[]
+	(view/render (res "login.html")
+							 {:title   "Login dulu dong"
+								:page    "login"
+								:message "Attempting login in..."
+								:links   guest-links}))
+
+
+(defn sign-up
+	[]
+	(view/render (res "signup.html")
+							 {:title "Signup men"
+							  :page "signup"
+							  :message "Me attempting  signup"
+							  :links guest-links}))
 
 
 
