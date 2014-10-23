@@ -49,7 +49,8 @@
 
 (def app (app-handler
            ;; add your application routes here
-           [routes/home routes/backoffice base-routes]
+          [routes/home routes/problems
+           routes/backoffice base-routes]
            ;; add custom middleware here
            :middleware (load-middleware)
            ;; timeout sessions after 30 minutes

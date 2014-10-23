@@ -1,6 +1,11 @@
 (ns pretelan.backoffice.ctrl
-	(:require [pretelan.backoffice.views :as page]
-						[pretelan.dbase :as db]))
+  (:require [com.ashafa.clutch :as cl]
+            [pretelan.dbase :as db :refer [get-zenid make-couch]]))
 
+(def ^:private cdb (make-couch :local-couch))
+
+(defn all-users
+  []
+  (map :value (cl/get-view cdb "user" "byEmail")))
 
 

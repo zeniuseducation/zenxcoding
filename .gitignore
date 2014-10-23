@@ -1,4 +1,6 @@
 /.idea
+/resources/.idea
+/resources/tutorials/.idea
 config.edn
 *.iml
 .lein-env
