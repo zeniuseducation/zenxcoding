@@ -1,7 +1,7 @@
 (ns pretelan.site.views
   (:require [pretelan.layout :as view]
             [pretelan.site.user :as user]
-            [pretelan.site.problem :as problem]))
+            [pretelan.site.problem :as prob]))
 
 (def ^:private guest-links
   [{:url "/login" :name "Lojeen"}
@@ -33,7 +33,7 @@
   [user]
   (view/render (res "problems.html")
                {:title "These are your quests... my padawan/padawati"
-                :problems (problem/problems user)
+                :problems (prob/problems user)
                 :page "problems"
                 :message (str "You are logged-in as " user)
                 :links member-links}))
@@ -41,7 +41,7 @@
 (defn problem
   [no]
   (let [{:keys [content no]}
-        (problem/problem (read-string no))]
+        (prob/problem (read-string no))]
     (view/render (res "problem.html")
                  {:title "These are quests... my padawan/padawati"
                   :content content
@@ -54,7 +54,9 @@
   [username email]
   (view/render (res "account.html")
                {:page "account"
-                :user (user/get-user email)
+                :user (let [data (user/get-user email)]
+                        (assoc data
+                          :problems (sort-by :date (:problems data))))
                 :title "Update your account"
                 :links member-links}))
 
@@ -65,6 +67,15 @@
                 :page    "login"
                 :message "Attempting login in..."
                 :links   guest-links}))
+
+(defn ranks
+  []
+  (view/render (res "ranks.html")
+               {:title "Ranks of the rulers"
+                :page "ranks"
+                :message "Test y'alll"
+                :users (user/ranks)
+                :links member-links}))
 
 
 (defn sign-up

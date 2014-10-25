@@ -2,6 +2,8 @@
   (:require [reagent.core :as reagent :refer [atom render-component]]
             [ajax.core :refer [GET POST]]))
 
+(def current-user (atom {}))
+
 (defn selid
   "selector by id"
   [id]
@@ -34,13 +36,18 @@
                       (selid "main-login"))
     (.alert js/window (:message response))))
 
+(defn login-error-callback
+  [response]
+  (.alert js/window "Tampaknya error, bisa aja salah password"))
+
 (defn login-act
   "The act of posting email password when login through ajax, using
   edn"
   [email password]
   (POST "/login-act"
         {:params  {:email email :password password}
-         :handler login-callback}))
+         :handler login-callback
+         :error-handler login-error-callback}))
 
 (defn login-form
   "Login-form component with logic to submit the form through ajax"
@@ -164,14 +171,23 @@
 (defn post-answer
   []
   [:div.medium-10.medium-centered.columns
-   [:h1 "Congratulations! You got it right!!"]])
+   [:div.medium-4.columns
+    [:img {:src "/img/jempol.jpg"}]]
+   [:div.medium-8.columns
+    [:h1 "Congratulations!"]
+    [:h2 "You've Solved this one!!"]
+    [:h4 (str "You've now solved " (:solved @current-user) " problem(s)")]
+    [:h4 (str "and your score is now " (:score @current-user))]]])
 
 (defn answer-callback
   "the callback function for login."
   [response]
   (if (:status response)
-    (render-component [post-answer]
-                      (selid "answer-form"))
+    (do (swap! current-user merge
+               {:solved (:solved response)
+                :score (:score response)})
+        (render-component [post-answer]
+                          (selid "answer-form")))
     (.alert js/window (:message response))))
 
 (defn answer-act
@@ -223,8 +239,6 @@
   []
   [:p "Something wrong here!"])
 
-(def current-user (atom {}))
-
 
 (defn account-form
   "The signup form component with the logic embedded"
@@ -242,7 +256,8 @@
       [:fieldset.zpanel3
        [:legend "Edit account"]
        [:br]
-       [:div.medium-9.medium-centered.columns
+       [:div.medium-10.medium-centered.columns
+        [:h5 "Email"]
         [:input {:type        "text"
                  :value       @email
                  :id          "email"
@@ -263,21 +278,25 @@
                  :id          "password-confirmation"
                  :on-change   #(reset! password-confirmation (-> % .-target .-value))
                  :placeholder "PASTIIN ISI PASSWORD"}]
+        [:h5 "Username"]
         [:input {:type        "text"
                  :value       @username
                  :id          "username"
                  :on-change   #(reset! username (-> % .-target .-value))
                  :placeholder "Username/Nickname"}]
+        [:h5 "Nama beneran"]
         [:input {:type        "text"
                  :value       @nama
                  :id          "nama"
                  :on-change   #(reset! nama (-> % .-target .-value))
                  :placeholder "Nama beneran"}]
+        [:h5 "Twitter account"]
         [:input {:type        "text"
                  :value       @twitter
                  :id          "twitter"
                  :on-change   #(reset! twitter (-> % .-target .-value))
                  :placeholder "twitter account (pake @)"}]
+        [:h5 "Chosen languages"]
         [:input {:type        "text"
                  :value       @languages
                  :id          "languages"
@@ -319,6 +338,7 @@
     "problem" (render-component [answer-form]
                                 (selid "answer-form"))
     "account" (request-user)
+    "ranks" nil
     "problems" nil))
 
 (start (get-page))

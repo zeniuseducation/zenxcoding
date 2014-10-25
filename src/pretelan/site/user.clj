@@ -23,6 +23,16 @@
           (take n)
           (map :value))))
 
+(defn selected-keys
+  [target]
+  (map :value (cl/get-view cdb "user" target)))
+
+(defn ranks
+  []
+  (map #(assoc %1 :rank %2)
+       (reverse (sort-by :score (selected-keys "forRank")))
+       (iterate inc 1)))
+
 (defn- compare-password
   "The act of comparing user password against the content in the db"
   [email password]
@@ -41,6 +51,10 @@
                false
                (select-keys user-data [:email :username]))))
   ([email password] (compare-password email password)))
+
+(defn total-users
+  []
+  (:counter (:value (first (cl/get-view cdb "zenid" "byZtype" {:key "user"})))))
 
 (defn sign-up
   "The act of adding user into database"

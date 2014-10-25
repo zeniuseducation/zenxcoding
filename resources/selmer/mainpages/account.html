@@ -1,7 +1,8 @@
 {% extends "selmer/mainpages/base.html" %}
 {% block foo %}
+<div id="main-info" class="medium-9 columns">
 <br/>
-		<div id="account-info" class="medium-6 medium-centered columns">
+		<div id="account-info" class="medium-8 medium-centered columns">
 			<fieldset>
 				<legend>
 					Account progress
@@ -14,9 +15,29 @@
 			</fieldset>
 		</div>
 <br/>
-<div id="main-account" class="medium-8 medium-centered columns">
+<div id="main-account" class="medium-12 medium-centered columns">
 	<div id="account-form" class="medium-10 medium-centered columns">
 	</div>
 </div>
+<br/>
+</div>
+<div id="problems-solved" class="medium-3 medium-centered columns">
+	<br/>
+	<h5>List of solved problems</h5>
+	<br/>
+	<table class="medium-centered columns">
+		<thead>
+		<td>No</td>
+		<td>Solved on</td>
+		</thead>
+		{% for problem in user.problems %}
+		<tr>
+			<td><a href="/problems/problem/{{problem.no}}">{{problem.no}}</a></td>
+			<td>{{problem.date}}</td>
+		</tr>
+		{% endfor %}
+	</table>
+</div>
+
 {% endblock %}
 

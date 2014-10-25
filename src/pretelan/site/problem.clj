@@ -1,11 +1,18 @@
 (ns pretelan.site.problem
   (:require [pretelan.dbase :refer [make-couch get-zenid create-type]]
             [com.ashafa.clutch :as cl]
-            [pretelan.util :refer [now]]))
+            [pretelan.util :refer [now]]
+            [pretelan.site.user :as user :refer [total-users]]))
 
 (def cdb (make-couch :local-couch))
 
 (def problem-dir "resources/problem/")
+
+(defn elem
+  [n ls]
+  (if (some #(= % n) ls)
+    true
+    false))
 
 (defn user-problems
   [user-email]
@@ -23,7 +30,7 @@
         user-probs (user-problems user-email)]
     (map #(assoc %
             :status
-            (if (some (:no %) user-probs)
+            (if (elem (:no %) user-probs)
               "Solved!"
               ""))
          problems)))
@@ -34,7 +41,6 @@
     (->> {:no zenid
           :solvers 0
           :type "problem"
-          :maxpoints 100
           :date (now)
           :link (str "problems/problem/" zenid)
           :content (slurp (str problem-dir (:file problem-map) ".html"))}
@@ -49,24 +55,50 @@
 
 (defn problem-answered
   [no]
-  nil)
+  (let [old-data (problem no)
+        solvers (inc (:solvers old-data))
+        total-usrs (total-users)]
+    (cl/put-document cdb
+                     (assoc old-data
+                       :solvers solvers))))
+
+(defn answered-before?
+  [email no]
+  (elem no (user-problems email)))
 
 (defn user-answered
-  [email no]
-  nil)
+  [email no maxpoint]
+  (let [old-data (user/get-user email)
+        problems (conj (:problems old-data)
+                       {:no no :date (now)})
+        score (+ maxpoint (:score old-data))
+        solved (inc (:solved old-data))]
+    (cl/put-document cdb
+                     (merge old-data
+                            {:problems problems
+                             :score score
+                             :solved solved}))))
 
 (defn check-answer?
   [no answer user-email]
-  (let [db-answer (->> {:key no}
-                       (cl/get-view cdb "problem" "byNo")
-                       (first)
-                       :value
-                       :answer)
-        correct? (= answer (read-string db-answer))]
+  (let [problem-data (->> {:key no}
+                          (cl/get-view cdb "problem" "byNo")
+                          (first)
+                          :value)
+        correct? (= answer
+                    (read-string (:answer problem-data)))
+        total-usrs (total-users)]
     (if correct?
-      (do (problem-answered no)
-          (user-answered user-email no)
-          correct?)
+      (if (answered-before? user-email no)
+        correct?
+        (do (problem-answered no)
+            (user-answered user-email
+                           no
+                           (int (* 100
+                                   (/ (- total-usrs
+                                         (:solvers problem-data))
+                                      total-usrs))))
+            correct?))
       correct?)))
 
 

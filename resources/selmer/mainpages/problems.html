@@ -3,13 +3,12 @@
 <br/>
 <fieldset id="problems" class="medium-12 columns">
 	<legend>Problems</legend>
-	<table>
+	<table class="medium-11 medium-centered column">
 		<thead>
 		<td>No</td>
 		<td>Problem</td>
 		<td>Date added</td>
 		<td>Solved by</td>
-		<td>Current Max point</td>
 		<td>Status</td>
 		</thead>
 
@@ -19,8 +18,7 @@
 			<td><a href="{{problem.link}}">{{problem.title}}</a></td>
 			<td>{{problem.date}}</td>
 			<td>{{problem.solvers}}</td>
-			<td>{{problem.maxpoints}}</td>
-			<td>{{problem.status}}</td>
+			<td><strong><span style="color: limegreen;">{{problem.status}}</span></strong></td>
 		</tr>
 		{% endfor %}
 

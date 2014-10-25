@@ -34,6 +34,9 @@
            (GET "/logout" request
                 (do (sess/clear!)
                     (resp/redirect "/")))
+           (GET "/ranks" request
+                (do (println "Ini ga error kok")
+                    (page/ranks)))
            (GET "/request-user" request
                 (let [email (sess/get :email)
                       user (user/get-user email)]
@@ -72,7 +75,7 @@
 (def problems
   (context "/problems" request
            (GET "/" request
-                (page/problems (sess/get :username)))
+                (page/problems (sess/get :email)))
            (GET "/problem/:nomer" [nomer]
                 (page/problem nomer))
            (POST "/answer-act" request
@@ -81,7 +84,12 @@
                    (if (problem/check-answer? (read-string no)
                                               (read-string answer)
                                               user-email)
-                     (resp/edn {:status true :message "Gokil!"})
+                     (let [{:keys [score solved]}
+                           (user/get-user user-email)]
+                       (resp/edn {:status true
+                                  :message "Gokil!"
+                                  :score score
+                                  :solved solved}))
                      (resp/edn {:status false :message (str "Jawaban no "
                                                             no
                                                             " masih salah "
