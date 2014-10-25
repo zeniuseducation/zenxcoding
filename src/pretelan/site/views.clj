@@ -1,7 +1,7 @@
 (ns pretelan.site.views
   (:require [pretelan.layout :as view]
             [pretelan.site.user :as user]
-            [pretelan.soal.ctrl :refer [soal]]))
+            [pretelan.site.problem :as problem]))
 
 (def ^:private guest-links
   [{:url "/login" :name "Lojeen"}
@@ -33,9 +33,22 @@
   [user]
   (view/render (res "problems.html")
                {:title "These are your quests... my padawan/padawati"
+                :problems (problem/problems user)
                 :page "problems"
                 :message (str "You are logged-in as " user)
                 :links member-links}))
+
+(defn problem
+  [no]
+  (let [{:keys [content no]}
+        (problem/problem (read-string no))]
+    (view/render (res "problem.html")
+                 {:title "These are quests... my padawan/padawati"
+                  :content content
+                  :no no
+                  :page "problem"
+                  :message (str "You are logged-in as " )
+                  :links member-links})))
 
 (defn account
   [username email]

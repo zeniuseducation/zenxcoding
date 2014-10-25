@@ -8,6 +8,8 @@
   [filename]
   (md/md-to-html-string (slurp filename)))
 
-
+(defn now
+  []
+  (subs (str (t/now)) 0 10))
 
 

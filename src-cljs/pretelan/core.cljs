@@ -12,6 +12,11 @@
   []
   (str (.-className (selid "body"))))
 
+(defn problem-no
+  "Returns the problem no.."
+  []
+  (str (.-className (selid "problem-no"))))
+
 (defn post-login
   []
   [:div.medium-12.medium-centered.columns
@@ -61,11 +66,18 @@
                  :on-click #(login-act @email @password)}
         "Login"]])))
 
+(defn post-signup
+  []
+  [:div.medium-12.medium-centered.columns
+   [:h3 "Now that you're signed-up, please try to login "
+    [:a {:href "/login"} "here!"]]])
+
 (defn signup-callback
   "Callback function for signup"
   [response]
   (if (:status response)
-    (.alert js/window (:message response))
+    (render-component [post-signup]
+                      (selid "signup-form"))
     (.alert js/window (:message response))))
 
 (defn signup-act
@@ -149,6 +161,44 @@
                                                  (selid "message-holder")))}
          "Sign-up"]]])))
 
+(defn post-answer
+  []
+  [:div.medium-10.medium-centered.columns
+   [:h1 "Congratulations! You got it right!!"]])
+
+(defn answer-callback
+  "the callback function for login."
+  [response]
+  (if (:status response)
+    (render-component [post-answer]
+                      (selid "answer-form"))
+    (.alert js/window (:message response))))
+
+(defn answer-act
+  "The act of posting email password when login through ajax, using
+  edn"
+  [answer no]
+  (POST "/problems/answer-act"
+        {:params  {:answer answer :no no}
+         :handler answer-callback}))
+
+(defn answer-form
+  "Login-form component with logic to submit the form through ajax"
+  []
+  (let [answer (atom "")]
+    (fn []
+      [:fieldset.zpanel3.medium-8.medium-centered.columns
+       [:legend "Submit your answer here"]
+       [:br]
+       [:input {:type        "text"
+                :value       @answer
+                :id          "answer"
+                :on-change   #(reset! answer (-> % .-target .-value))}]
+       [:button {:class    "small right radius"
+                 :id       "submit"
+                 :on-click #(answer-act @answer (problem-no))}
+        "Submit"]])))
+
 (defn start
   "The act of mounting necessary components based on the page"
   [page]
@@ -156,9 +206,28 @@
     "login" (render-component [login-form]
                               (selid "login-form"))
     "signup" (render-component [signup-form]
-                               (selid "signup-form"))))
+                               (selid "signup-form"))
+    "problem" (render-component [answer-form]
+                                (selid "answer-form"))
+    "problems" nil))
 
 (start (get-page))
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

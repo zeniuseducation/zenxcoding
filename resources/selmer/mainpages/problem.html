@@ -1,0 +1,15 @@
+{% extends "selmer/mainpages/base.html" %}
+{% block foo %}
+<div id="problem-no" class="{{no}}"></div>
+<div id="content" class="medium-11 medium-centered columns">
+	<br/>
+	<fieldset>
+		<legend>Problem no {{no}}</legend>
+		{{content|safe}}
+	</fieldset>
+	<br/>
+	<div id="answer-form"></div>
+</div>
+
+{% endblock %}
+

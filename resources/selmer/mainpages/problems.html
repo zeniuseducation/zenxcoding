@@ -4,6 +4,25 @@
 <fieldset id="problems" class="medium-12 columns">
 	<legend>Problems</legend>
 	<table>
+		<thead>
+			<td>
+		No
+			</td>
+		<td>Problem</td>
+		<td>Solved by</td>
+		<td>Current Max point</td>
+		<td>Status</td>
+		</thead>
+
+		{% for problem in problems %}
+		<tr>
+			<td>{{problem.no}}</td>
+			<td><a href="{{problem.link}}">{{problem.title}}</a></td>
+			<td>{{problem.solvers}}</td>
+			<td>{{problem.maxpoints}}</td>
+			<td>{{problem.status}}</td>
+		</tr>
+		{% endfor %}
 
 	</table>
 </fieldset>

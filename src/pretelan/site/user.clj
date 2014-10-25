@@ -1,6 +1,7 @@
 (ns pretelan.site.user
   (:require [pretelan.dbase :as db :refer [get-zenid make-couch]]
             [noir.util.crypt :as crip]
+            [pretelan.util :refer [now]]
             [com.ashafa.clutch :as cl]))
 
 (def ^:private cdb (make-couch :local-couch))
@@ -46,7 +47,9 @@
   [user-map]
   (->> {:user-id (get-zenid cdb "user")
         :password (crip/encrypt (:password user-map))
-        :type "user"}
+        :type "user"
+        :problems []
+        :date (now)}
        (merge user-map)
        (cl/put-document cdb)))
 

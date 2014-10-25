@@ -5,7 +5,10 @@
             [pretelan.backoffice.ctrl :as boctrl]
             [pretelan.backoffice.views :as bopage]
             [pretelan.site.views :as page]
-            [pretelan.site.user :as user]))
+            [pretelan.site.user :as user]
+            [pretelan.site.problem :as problem]))
+
+"Some stuffs"
 
 (defn valid-admin?
   "Check whether the certa in user is valid for admin access"
@@ -59,7 +62,20 @@
 (def problems
   (context "/problems" request
            (GET "/" request
-                (page/problems (sess/get :username)))))
+                (page/problems (sess/get :username)))
+           (GET "/problem/:nomer" [nomer]
+                (page/problem nomer))
+           (POST "/answer-act" request
+                 (let [user-email (sess/get :email)
+                       {:keys [answer no]} (:params request)]
+                   (if (problem/check-answer? (read-string no)
+                                              (read-string answer)
+                                              user-email)
+                     (resp/edn {:status true :message "Gokil!"})
+                     (resp/edn {:status false :message (str "Jawaban no "
+                                                            no
+                                                            " masih salah "
+                                                            (sess/get :username))}))))))
 
 (def backoffice
   (context "/backoffice" request
