@@ -47,14 +47,29 @@
   [user-map]
   (->> {:user-id (get-zenid cdb "user")
         :password (crip/encrypt (:password user-map))
+        :score 0
+        :solved 0
         :type "user"
         :problems []
         :date (now)}
        (merge user-map)
        (cl/put-document cdb)))
 
+(defn update-user
+  [user-map]
+  (let [email (:email user-map)
+        old-data (get-user email)
+        final-data (assoc user-map
+                     :password
+                     (crip/encrypt (:password user-map)))]
+    (cl/put-document cdb
+                     (merge old-data
+                            user-map))))
+
 (defn exists?
   "Check whether an email of a user exists in db"
   [email]
   (not (empty? (get-user email))))
+
+
 

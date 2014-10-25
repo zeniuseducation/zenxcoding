@@ -1,0 +1,22 @@
+{% extends "selmer/mainpages/base.html" %}
+{% block foo %}
+<br/>
+		<div id="account-info" class="medium-6 medium-centered columns">
+			<fieldset>
+				<legend>
+					Account progress
+				</legend>
+				<h5>Username : {{user.username}}</h5>
+				<h5>Date registered : {{user.date}}</h5>
+				<h5>Problems solved : {{user.solved}}</h5>
+				<h5>Total scores : {{user.score}}</h5>
+
+			</fieldset>
+		</div>
+<br/>
+<div id="main-account" class="medium-8 medium-centered columns">
+	<div id="account-form" class="medium-10 medium-centered columns">
+	</div>
+</div>
+{% endblock %}
+

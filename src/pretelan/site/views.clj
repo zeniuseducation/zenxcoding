@@ -52,8 +52,10 @@
 
 (defn account
   [username email]
-  (view/render (res "home.html")
-               {:page "home"
+  (view/render (res "account.html")
+               {:page "account"
+                :user (user/get-user email)
+                :title "Update your account"
                 :links member-links}))
 
 (defn login

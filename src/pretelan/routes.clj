@@ -24,15 +24,25 @@
                 (if (sess/get :email)
                   (page/home (sess/get :username))
                   (page/home)))
+           (GET "/account" request
+                (if (sess/get :email)
+                  (page/account (sess/get :username)
+                                (sess/get :email))
+                  (resp/redirect "/login")))
            (GET "/login" request
                 (page/login))
-           (GET "/signup" request
-                (page/sign-up))
            (GET "/logout" request
                 (do (sess/clear!)
                     (resp/redirect "/")))
-           (GET "/account" request
-                (page/account (sess/get :username)))
+           (GET "/request-user" request
+                (let [email (sess/get :email)
+                      user (user/get-user email)]
+                  (resp/edn (dissoc user :password))))
+           (GET "/signup" request
+                (page/sign-up))
+           (POST "/account-act" request
+                 (do (user/update-user (:params request))
+                     (resp/edn {:status true :message "sukses"})))
            (POST "/login-act" request
                  (let [{:keys [email password]}
                        (:params request)]

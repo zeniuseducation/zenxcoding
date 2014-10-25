@@ -199,6 +199,115 @@
                  :on-click #(answer-act @answer (problem-no))}
         "Submit"]])))
 
+(defn post-account
+  []
+  [:div.medium-12.medium-centered.columns
+   [:h3 "Your account has been updated"]])
+
+(defn account-callback
+  "Callback function for signup"
+  [response]
+  (if (:status response)
+    (render-component [post-account]
+                      (selid "account-form"))
+    (.alert js/window (:message response))))
+
+(defn account-act
+  "The act of posting the user-map through ajax for registration"
+  [user-map]
+  (POST "/account-act"
+        {:params user-map
+         :handler account-callback}))
+
+(defn error-message
+  []
+  [:p "Something wrong here!"])
+
+(def current-user (atom {}))
+
+
+(defn account-form
+  "The signup form component with the logic embedded"
+  []
+  (let [{:keys [email username nama twitter languages]} @current-user
+        email (atom email)
+        email-confirmation (atom @email)
+        password (atom "")
+        password-confirmation (atom "")
+        username (atom username)
+        nama (atom nama)
+        twitter (atom twitter)
+        languages (atom languages)]
+    (fn []
+      [:fieldset.zpanel3
+       [:legend "Edit account"]
+       [:br]
+       [:div.medium-9.medium-centered.columns
+        [:input {:type        "text"
+                 :value       @email
+                 :id          "email"
+                 :on-change   #(reset! email (-> % .-target .-value))
+                 :placeholder "email"}]
+        [:input {:type        "text"
+                 :value       @email-confirmation
+                 :id          "email-confirmation"
+                 :on-change   #(reset! email-confirmation (-> % .-target .-value))
+                 :placeholder "masukin email lagi (konfirmasi)"}]
+        [:input {:type        "password"
+                 :value       @password
+                 :id          "password"
+                 :on-change   #(reset! password (-> % .-target .-value))
+                 :placeholder "password"}]
+        [:input {:type        "password"
+                 :value       @password-confirmation
+                 :id          "password-confirmation"
+                 :on-change   #(reset! password-confirmation (-> % .-target .-value))
+                 :placeholder "PASTIIN ISI PASSWORD"}]
+        [:input {:type        "text"
+                 :value       @username
+                 :id          "username"
+                 :on-change   #(reset! username (-> % .-target .-value))
+                 :placeholder "Username/Nickname"}]
+        [:input {:type        "text"
+                 :value       @nama
+                 :id          "nama"
+                 :on-change   #(reset! nama (-> % .-target .-value))
+                 :placeholder "Nama beneran"}]
+        [:input {:type        "text"
+                 :value       @twitter
+                 :id          "twitter"
+                 :on-change   #(reset! twitter (-> % .-target .-value))
+                 :placeholder "twitter account (pake @)"}]
+        [:input {:type        "text"
+                 :value       @languages
+                 :id          "languages"
+                 :on-change   #(reset! languages (-> % .-target .-value))
+                 :placeholder "Your programming languages (boleh > 1)"}]
+        [:button {:class    "small right radius"
+                  :id       "account-button"
+                  :on-click #(if (and (= @email @email-confirmation)
+                                      (= @password @password-confirmation))
+                               (account-act {:username  @username
+                                             :email     @email
+                                             :nama      @nama
+                                             :twitter   @twitter
+                                             :languages @languages
+                                             :password  @password})
+                               (render-component [error-message]
+                                                 (selid "message-holder")))}
+         "Edit account"]]])))
+
+(defn handle-user
+  [resp]
+  (do (reset! current-user resp)
+      (render-component [account-form]
+                        (selid "account-form"))))
+
+(defn request-user
+  []
+  (GET "/request-user"
+       {:handler handle-user}))
+
 (defn start
   "The act of mounting necessary components based on the page"
   [page]
@@ -209,6 +318,7 @@
                                (selid "signup-form"))
     "problem" (render-component [answer-form]
                                 (selid "answer-form"))
+    "account" (request-user)
     "problems" nil))
 
 (start (get-page))

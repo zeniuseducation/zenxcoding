@@ -47,6 +47,14 @@
        (first)
        (:value)))
 
+(defn problem-answered
+  [no]
+  nil)
+
+(defn user-answered
+  [email no]
+  nil)
+
 (defn check-answer?
   [no answer user-email]
   (let [db-answer (->> {:key no}
@@ -56,7 +64,9 @@
                        :answer)
         correct? (= answer (read-string db-answer))]
     (if correct?
-      (do ())
+      (do (problem-answered no)
+          (user-answered user-email no)
+          correct?)
       correct?)))
 
 
