@@ -4,7 +4,7 @@
             [pretelan.util :refer [now]]
             [com.ashafa.clutch :as cl]))
 
-(def ^:private cdb (make-couch :local-couch))
+(def ^:private cdb (make-couch :cloudant-production))
 
 (defn all-users
   []

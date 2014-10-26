@@ -4,7 +4,7 @@
             [pretelan.util :refer [now]]
             [pretelan.site.user :as user :refer [total-users]]))
 
-(def cdb (make-couch :local-couch))
+(def cdb (make-couch :cloudant-production))
 
 (def problem-dir "resources/problem/")
 

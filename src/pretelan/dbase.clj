@@ -1,10 +1,11 @@
 (ns pretelan.dbase
   (:require [cemerick.url :as curl]
-            [com.ashafa.clutch :as cl]))
+            [com.ashafa.clutch :as cl]
+            [pretelan.config :refer :all]))
 
 (defn config
   []
-  (read-string (slurp "config.edn")))
+  config-data)
 
 (defn make-couch
   "Function to create an instance of a couch"

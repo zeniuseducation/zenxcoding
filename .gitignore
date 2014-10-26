@@ -9,3 +9,4 @@ config.edn
 *.log
 /target
 .nrepl-port
+/src/pretelan/config.clj

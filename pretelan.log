@@ -56,3 +56,216 @@
 2014-Oct-26 05:13:13 +0700 QuestMac.local INFO [pretelan.handler] - pretelan is shutting down...
 2014-Oct-26 05:13:14 +0700 QuestMac.local INFO [pretelan.handler] - shutdown complete!
 2014-Oct-26 05:14:02 +0700 QuestMac.local INFO [pretelan.handler] - pretelan started successfully
+2014-Oct-26 05:57:44 +0700 QuestMac.local INFO [pretelan.handler] - pretelan is shutting down...
+2014-Oct-26 05:57:44 +0700 QuestMac.local INFO [pretelan.handler] - shutdown complete!
+2014-Oct-26 07:31:17 +0700 QuestMac.local INFO [pretelan.handler] - pretelan started successfully
+2014-Oct-26 07:31:42 +0700 QuestMac.local ERROR [pretelan.middleware] - 
+[1;31mjava.io.IOException[m: [3mNo such view: https://cruentstoldsonseatinstie:TfUdTDcvC7i0I4osiw21qSqM@zenius.cloudant.com/zenx-code/_design/user/_view/byEmail?key=%22sabda%22[m
+                                               [33mcom.ashafa.clutch.http-client/[1;33mview-request[m  [32m            http_client.clj:  114[m
+                                                               [37mclojure.lang.RestFn.invoke[m  [32m                RestFn.java:  464[m
+                                                              [33mcom.ashafa.clutch/[1;33mget-view*[m  [32m                 clutch.clj:  311[m
+                                                              [37mclojure.lang.RestFn.applyTo[m  [32m                RestFn.java:  142[m
+                                                                       [33mclojure.core/[1;33mapply[m  [32m                   core.clj:  628[m
+                                                               [33mcom.ashafa.clutch/[1;33mget-view[m  [32m                 clutch.clj:  319[m
+                                                              [37mclojure.lang.RestFn.applyTo[m  [32m                RestFn.java:  146[m
+                                                                       [33mclojure.core/[1;33mapply[m  [32m                   core.clj:  626[m
+                                                            [33mcom.ashafa.clutch/with-db*/[1;33mfn[m  [32m                 clutch.clj:   35[m
+                                                               [37mclojure.lang.RestFn.invoke[m  [32m                RestFn.java:  457[m
+                                                              [33mpretelan.site.user/[1;33mget-user[m  [32m                   user.clj:   18[m
+                                                      [33mpretelan.site.user/[1;33mcompare-password[m  [32m                   user.clj:   39[m
+                                                                 [33mpretelan.site.user/[1;33mvalid[m  [32m                   user.clj:   53[m
+                                                                    [33mpretelan.routes/fn/[1;33mfn[m  [32m                 routes.clj:   53[m
+                                                             [33mcompojure.core/make-route/[1;33mfn[m  [32m                   core.clj:   99[m
+                                                               [33mcompojure.core/if-route/[1;33mfn[m  [32m                   core.clj:   45[m
+                                                              [33mcompojure.core/if-method/[1;33mfn[m  [32m                   core.clj:   30[m
+                                                                [33mcompojure.core/routing/[1;33mfn[m  [32m                   core.clj:  112[m
+                                                                        [33mclojure.core/[1;33msome[m  [32m                   core.clj: 2515[m
+                                                                   [33mcompojure.core/[1;33mrouting[m  [32m                   core.clj:  112[m
+                                                               [37mclojure.lang.RestFn.invoke[m  [32m                RestFn.java:  943[m
+                                                                       [33mpretelan.routes/[1;33mfn[m  [32m                 routes.clj:   60[m
+                                                           [33mcompojure.core/wrap-context/[1;33mfn[m  [32m                   core.clj:  176[m
+                                                               [33mcompojure.core/if-route/[1;33mfn[m  [32m                   core.clj:   45[m
+                                                                [33mcompojure.core/routing/[1;33mfn[m  [32m                   core.clj:  112[m
+                                                                        [33mclojure.core/[1;33msome[m  [32m                   core.clj: 2515[m
+                                                                   [33mcompojure.core/[1;33mrouting[m  [32m                   core.clj:  112[m
+                                                              [37mclojure.lang.RestFn.applyTo[m  [32m                RestFn.java:  139[m
+                                                                       [33mclojure.core/[1;33mapply[m  [32m                   core.clj:  626[m
+                                                                 [33mcompojure.core/routes/[1;33mfn[m  [32m                   core.clj:  117[m
+                                               [33mnoir-exception.core/wrap-internal-error/[1;33mfn[m  [32m                   core.clj:  121[m
+                                                 [33mnoir.util.middleware/wrap-request-map/[1;33mfn[m  [32m             middleware.clj:   45[m
+                                    [33mring.middleware.keyword-params/wrap-keyword-params/[1;33mfn[m  [32m         keyword_params.clj:   32[m
+                                      [33mring.middleware.nested-params/wrap-nested-params/[1;33mfn[m  [32m          nested_params.clj:   70[m
+                                                    [33mring.middleware.params/wrap-params/[1;33mfn[m  [32m                 params.clj:   64[m
+                                                       [33mhiccup.middleware/wrap-base-url/[1;33mfn[m  [32m             middleware.clj:   12[m
+                                      [33mring.middleware.format-params/wrap-format-params/[1;33mfn[m  [32m          format_params.clj:  113[m
+                                      [33mring.middleware.format-params/wrap-format-params/[1;33mfn[m  [32m          format_params.clj:  111[m
+                                  [33mring.middleware.format-response/wrap-format-response/[1;33mfn[m  [32m        format_response.clj:  174[m
+                                [33mring.middleware.multipart-params/wrap-multipart-params/[1;33mfn[m  [32m       multipart_params.clj:  107[m
+                                                  [33mnoir.validation/wrap-noir-validation/[1;33mfn[m  [32m             validation.clj:  155[m
+                                                             [33mnoir.cookies/noir-cookies/[1;33mfn[m  [32m                cookies.clj:   72[m
+                                                  [33mring.middleware.cookies/wrap-cookies/[1;33mfn[m  [32m                cookies.clj:  171[m
+                                                               [33mnoir.session/noir-flash/[1;33mfn[m  [32m                session.clj:  148[m
+                                                      [33mring.middleware.flash/wrap-flash/[1;33mfn[m  [32m                  flash.clj:   31[m
+                                                             [33mnoir.session/noir-session/[1;33mfn[m  [32m                session.clj:   99[m
+                             [33mring.middleware.session-timeout/wrap-idle-session-timeout/[1;33mfn[m  [32m        session_timeout.clj:   25[m
+                                                  [33mring.middleware.session/wrap-session/[1;33mfn[m  [32m                session.clj:   85[m
+                                                                  [37mclojure.lang.Var.invoke[m  [32m                   Var.java:  379[m
+                                                      [33mring.adapter.jetty/proxy-handler/[1;33mfn[m  [32m                  jetty.clj:   18[m
+[37mring.adapter.jetty.proxy$org.eclipse.jetty.server.handler.AbstractHandler$ff19274a.handle[m  [32m                                 [m
+                                   [37morg.eclipse.jetty.server.handler.HandlerWrapper.handle[m  [32m        HandlerWrapper.java:  116[m
+                                                   [37morg.eclipse.jetty.server.Server.handle[m  [32m                Server.java:  363[m
+                            [37morg.eclipse.jetty.server.AbstractHttpConnection.handleRequest[m  [32mAbstractHttpConnection.java:  483[m
+                                  [37morg.eclipse.jetty.server.AbstractHttpConnection.content[m  [32mAbstractHttpConnection.java:  931[m
+                   [37morg.eclipse.jetty.server.AbstractHttpConnection$RequestHandler.content[m  [32mAbstractHttpConnection.java:  992[m
+                                              [37morg.eclipse.jetty.http.HttpParser.parseNext[m  [32m            HttpParser.java:  856[m
+                                         [37morg.eclipse.jetty.http.HttpParser.parseAvailable[m  [32m            HttpParser.java:  240[m
+                                      [37morg.eclipse.jetty.server.AsyncHttpConnection.handle[m  [32m   AsyncHttpConnection.java:   82[m
+                                    [37morg.eclipse.jetty.io.nio.SelectChannelEndPoint.handle[m  [32m SelectChannelEndPoint.java:  628[m
+                                     [37morg.eclipse.jetty.io.nio.SelectChannelEndPoint$1.run[m  [32m SelectChannelEndPoint.java:   52[m
+                                    [37morg.eclipse.jetty.util.thread.QueuedThreadPool.runJob[m  [32m      QueuedThreadPool.java:  608[m
+                                     [37morg.eclipse.jetty.util.thread.QueuedThreadPool$3.run[m  [32m      QueuedThreadPool.java:  543[m
+                                                                     [37mjava.lang.Thread.run[m  [32m                Thread.java:  744[m
+
+2014-Oct-26 07:31:52 +0700 QuestMac.local ERROR [pretelan.middleware] - 
+[1;31mjava.io.IOException[m: [3mNo such view: https://cruentstoldsonseatinstie:TfUdTDcvC7i0I4osiw21qSqM@zenius.cloudant.com/zenx-code/_design/user/_view/byEmail?key=%22koko%22[m
+                                               [33mcom.ashafa.clutch.http-client/[1;33mview-request[m  [32m            http_client.clj:  114[m
+                                                               [37mclojure.lang.RestFn.invoke[m  [32m                RestFn.java:  464[m
+                                                              [33mcom.ashafa.clutch/[1;33mget-view*[m  [32m                 clutch.clj:  311[m
+                                                              [37mclojure.lang.RestFn.applyTo[m  [32m                RestFn.java:  142[m
+                                                                       [33mclojure.core/[1;33mapply[m  [32m                   core.clj:  628[m
+                                                               [33mcom.ashafa.clutch/[1;33mget-view[m  [32m                 clutch.clj:  319[m
+                                                              [37mclojure.lang.RestFn.applyTo[m  [32m                RestFn.java:  146[m
+                                                                       [33mclojure.core/[1;33mapply[m  [32m                   core.clj:  626[m
+                                                            [33mcom.ashafa.clutch/with-db*/[1;33mfn[m  [32m                 clutch.clj:   35[m
+                                                               [37mclojure.lang.RestFn.invoke[m  [32m                RestFn.java:  457[m
+                                                              [33mpretelan.site.user/[1;33mget-user[m  [32m                   user.clj:   18[m
+                                                      [33mpretelan.site.user/[1;33mcompare-password[m  [32m                   user.clj:   39[m
+                                                                 [33mpretelan.site.user/[1;33mvalid[m  [32m                   user.clj:   53[m
+                                                                    [33mpretelan.routes/fn/[1;33mfn[m  [32m                 routes.clj:   53[m
+                                                             [33mcompojure.core/make-route/[1;33mfn[m  [32m                   core.clj:   99[m
+                                                               [33mcompojure.core/if-route/[1;33mfn[m  [32m                   core.clj:   45[m
+                                                              [33mcompojure.core/if-method/[1;33mfn[m  [32m                   core.clj:   30[m
+                                                                [33mcompojure.core/routing/[1;33mfn[m  [32m                   core.clj:  112[m
+                                                                        [33mclojure.core/[1;33msome[m  [32m                   core.clj: 2515[m
+                                                                   [33mcompojure.core/[1;33mrouting[m  [32m                   core.clj:  112[m
+                                                               [37mclojure.lang.RestFn.invoke[m  [32m                RestFn.java:  943[m
+                                                                       [33mpretelan.routes/[1;33mfn[m  [32m                 routes.clj:   60[m
+                                                           [33mcompojure.core/wrap-context/[1;33mfn[m  [32m                   core.clj:  176[m
+                                                               [33mcompojure.core/if-route/[1;33mfn[m  [32m                   core.clj:   45[m
+                                                                [33mcompojure.core/routing/[1;33mfn[m  [32m                   core.clj:  112[m
+                                                                        [33mclojure.core/[1;33msome[m  [32m                   core.clj: 2515[m
+                                                                   [33mcompojure.core/[1;33mrouting[m  [32m                   core.clj:  112[m
+                                                              [37mclojure.lang.RestFn.applyTo[m  [32m                RestFn.java:  139[m
+                                                                       [33mclojure.core/[1;33mapply[m  [32m                   core.clj:  626[m
+                                                                 [33mcompojure.core/routes/[1;33mfn[m  [32m                   core.clj:  117[m
+                                               [33mnoir-exception.core/wrap-internal-error/[1;33mfn[m  [32m                   core.clj:  121[m
+                                                 [33mnoir.util.middleware/wrap-request-map/[1;33mfn[m  [32m             middleware.clj:   45[m
+                                    [33mring.middleware.keyword-params/wrap-keyword-params/[1;33mfn[m  [32m         keyword_params.clj:   32[m
+                                      [33mring.middleware.nested-params/wrap-nested-params/[1;33mfn[m  [32m          nested_params.clj:   70[m
+                                                    [33mring.middleware.params/wrap-params/[1;33mfn[m  [32m                 params.clj:   64[m
+                                                       [33mhiccup.middleware/wrap-base-url/[1;33mfn[m  [32m             middleware.clj:   12[m
+                                      [33mring.middleware.format-params/wrap-format-params/[1;33mfn[m  [32m          format_params.clj:  113[m
+                                      [33mring.middleware.format-params/wrap-format-params/[1;33mfn[m  [32m          format_params.clj:  111[m
+                                  [33mring.middleware.format-response/wrap-format-response/[1;33mfn[m  [32m        format_response.clj:  174[m
+                                [33mring.middleware.multipart-params/wrap-multipart-params/[1;33mfn[m  [32m       multipart_params.clj:  107[m
+                                                  [33mnoir.validation/wrap-noir-validation/[1;33mfn[m  [32m             validation.clj:  155[m
+                                                             [33mnoir.cookies/noir-cookies/[1;33mfn[m  [32m                cookies.clj:   72[m
+                                                  [33mring.middleware.cookies/wrap-cookies/[1;33mfn[m  [32m                cookies.clj:  171[m
+                                                               [33mnoir.session/noir-flash/[1;33mfn[m  [32m                session.clj:  148[m
+                                                      [33mring.middleware.flash/wrap-flash/[1;33mfn[m  [32m                  flash.clj:   31[m
+                                                             [33mnoir.session/noir-session/[1;33mfn[m  [32m                session.clj:   99[m
+                             [33mring.middleware.session-timeout/wrap-idle-session-timeout/[1;33mfn[m  [32m        session_timeout.clj:   25[m
+                                                  [33mring.middleware.session/wrap-session/[1;33mfn[m  [32m                session.clj:   85[m
+                                                                  [37mclojure.lang.Var.invoke[m  [32m                   Var.java:  379[m
+                                                      [33mring.adapter.jetty/proxy-handler/[1;33mfn[m  [32m                  jetty.clj:   18[m
+[37mring.adapter.jetty.proxy$org.eclipse.jetty.server.handler.AbstractHandler$ff19274a.handle[m  [32m                                 [m
+                                   [37morg.eclipse.jetty.server.handler.HandlerWrapper.handle[m  [32m        HandlerWrapper.java:  116[m
+                                                   [37morg.eclipse.jetty.server.Server.handle[m  [32m                Server.java:  363[m
+                            [37morg.eclipse.jetty.server.AbstractHttpConnection.handleRequest[m  [32mAbstractHttpConnection.java:  483[m
+                                  [37morg.eclipse.jetty.server.AbstractHttpConnection.content[m  [32mAbstractHttpConnection.java:  931[m
+                   [37morg.eclipse.jetty.server.AbstractHttpConnection$RequestHandler.content[m  [32mAbstractHttpConnection.java:  992[m
+                                              [37morg.eclipse.jetty.http.HttpParser.parseNext[m  [32m            HttpParser.java:  856[m
+                                         [37morg.eclipse.jetty.http.HttpParser.parseAvailable[m  [32m            HttpParser.java:  240[m
+                                      [37morg.eclipse.jetty.server.AsyncHttpConnection.handle[m  [32m   AsyncHttpConnection.java:   82[m
+                                    [37morg.eclipse.jetty.io.nio.SelectChannelEndPoint.handle[m  [32m SelectChannelEndPoint.java:  628[m
+                                     [37morg.eclipse.jetty.io.nio.SelectChannelEndPoint$1.run[m  [32m SelectChannelEndPoint.java:   52[m
+                                    [37morg.eclipse.jetty.util.thread.QueuedThreadPool.runJob[m  [32m      QueuedThreadPool.java:  608[m
+                                     [37morg.eclipse.jetty.util.thread.QueuedThreadPool$3.run[m  [32m      QueuedThreadPool.java:  543[m
+                                                                     [37mjava.lang.Thread.run[m  [32m                Thread.java:  744[m
+
+2014-Oct-26 07:31:59 +0700 QuestMac.local ERROR [pretelan.middleware] - 
+[1;31mjava.io.IOException[m: [3mNo such view: https://cruentstoldsonseatinstie:TfUdTDcvC7i0I4osiw21qSqM@zenius.cloudant.com/zenx-code/_design/user/_view/byEmail?key=%22koko%22[m
+                                               [33mcom.ashafa.clutch.http-client/[1;33mview-request[m  [32m            http_client.clj:  114[m
+                                                               [37mclojure.lang.RestFn.invoke[m  [32m                RestFn.java:  464[m
+                                                              [33mcom.ashafa.clutch/[1;33mget-view*[m  [32m                 clutch.clj:  311[m
+                                                              [37mclojure.lang.RestFn.applyTo[m  [32m                RestFn.java:  142[m
+                                                                       [33mclojure.core/[1;33mapply[m  [32m                   core.clj:  628[m
+                                                               [33mcom.ashafa.clutch/[1;33mget-view[m  [32m                 clutch.clj:  319[m
+                                                              [37mclojure.lang.RestFn.applyTo[m  [32m                RestFn.java:  146[m
+                                                                       [33mclojure.core/[1;33mapply[m  [32m                   core.clj:  626[m
+                                                            [33mcom.ashafa.clutch/with-db*/[1;33mfn[m  [32m                 clutch.clj:   35[m
+                                                               [37mclojure.lang.RestFn.invoke[m  [32m                RestFn.java:  457[m
+                                                              [33mpretelan.site.user/[1;33mget-user[m  [32m                   user.clj:   18[m
+                                                      [33mpretelan.site.user/[1;33mcompare-password[m  [32m                   user.clj:   39[m
+                                                                 [33mpretelan.site.user/[1;33mvalid[m  [32m                   user.clj:   53[m
+                                                                    [33mpretelan.routes/fn/[1;33mfn[m  [32m                 routes.clj:   53[m
+                                                             [33mcompojure.core/make-route/[1;33mfn[m  [32m                   core.clj:   99[m
+                                                               [33mcompojure.core/if-route/[1;33mfn[m  [32m                   core.clj:   45[m
+                                                              [33mcompojure.core/if-method/[1;33mfn[m  [32m                   core.clj:   30[m
+                                                                [33mcompojure.core/routing/[1;33mfn[m  [32m                   core.clj:  112[m
+                                                                        [33mclojure.core/[1;33msome[m  [32m                   core.clj: 2515[m
+                                                                   [33mcompojure.core/[1;33mrouting[m  [32m                   core.clj:  112[m
+                                                               [37mclojure.lang.RestFn.invoke[m  [32m                RestFn.java:  943[m
+                                                                       [33mpretelan.routes/[1;33mfn[m  [32m                 routes.clj:   60[m
+                                                           [33mcompojure.core/wrap-context/[1;33mfn[m  [32m                   core.clj:  176[m
+                                                               [33mcompojure.core/if-route/[1;33mfn[m  [32m                   core.clj:   45[m
+                                                                [33mcompojure.core/routing/[1;33mfn[m  [32m                   core.clj:  112[m
+                                                                        [33mclojure.core/[1;33msome[m  [32m                   core.clj: 2515[m
+                                                                   [33mcompojure.core/[1;33mrouting[m  [32m                   core.clj:  112[m
+                                                              [37mclojure.lang.RestFn.applyTo[m  [32m                RestFn.java:  139[m
+                                                                       [33mclojure.core/[1;33mapply[m  [32m                   core.clj:  626[m
+                                                                 [33mcompojure.core/routes/[1;33mfn[m  [32m                   core.clj:  117[m
+                                               [33mnoir-exception.core/wrap-internal-error/[1;33mfn[m  [32m                   core.clj:  121[m
+                                                 [33mnoir.util.middleware/wrap-request-map/[1;33mfn[m  [32m             middleware.clj:   45[m
+                                    [33mring.middleware.keyword-params/wrap-keyword-params/[1;33mfn[m  [32m         keyword_params.clj:   32[m
+                                      [33mring.middleware.nested-params/wrap-nested-params/[1;33mfn[m  [32m          nested_params.clj:   70[m
+                                                    [33mring.middleware.params/wrap-params/[1;33mfn[m  [32m                 params.clj:   64[m
+                                                       [33mhiccup.middleware/wrap-base-url/[1;33mfn[m  [32m             middleware.clj:   12[m
+                                      [33mring.middleware.format-params/wrap-format-params/[1;33mfn[m  [32m          format_params.clj:  113[m
+                                      [33mring.middleware.format-params/wrap-format-params/[1;33mfn[m  [32m          format_params.clj:  111[m
+                                  [33mring.middleware.format-response/wrap-format-response/[1;33mfn[m  [32m        format_response.clj:  174[m
+                                [33mring.middleware.multipart-params/wrap-multipart-params/[1;33mfn[m  [32m       multipart_params.clj:  107[m
+                                                  [33mnoir.validation/wrap-noir-validation/[1;33mfn[m  [32m             validation.clj:  155[m
+                                                             [33mnoir.cookies/noir-cookies/[1;33mfn[m  [32m                cookies.clj:   72[m
+                                                  [33mring.middleware.cookies/wrap-cookies/[1;33mfn[m  [32m                cookies.clj:  171[m
+                                                               [33mnoir.session/noir-flash/[1;33mfn[m  [32m                session.clj:  148[m
+                                                      [33mring.middleware.flash/wrap-flash/[1;33mfn[m  [32m                  flash.clj:   31[m
+                                                             [33mnoir.session/noir-session/[1;33mfn[m  [32m                session.clj:   99[m
+                             [33mring.middleware.session-timeout/wrap-idle-session-timeout/[1;33mfn[m  [32m        session_timeout.clj:   25[m
+                                                  [33mring.middleware.session/wrap-session/[1;33mfn[m  [32m                session.clj:   85[m
+                                                                  [37mclojure.lang.Var.invoke[m  [32m                   Var.java:  379[m
+                                                      [33mring.adapter.jetty/proxy-handler/[1;33mfn[m  [32m                  jetty.clj:   18[m
+[37mring.adapter.jetty.proxy$org.eclipse.jetty.server.handler.AbstractHandler$ff19274a.handle[m  [32m                                 [m
+                                   [37morg.eclipse.jetty.server.handler.HandlerWrapper.handle[m  [32m        HandlerWrapper.java:  116[m
+                                                   [37morg.eclipse.jetty.server.Server.handle[m  [32m                Server.java:  363[m
+                            [37morg.eclipse.jetty.server.AbstractHttpConnection.handleRequest[m  [32mAbstractHttpConnection.java:  483[m
+                                  [37morg.eclipse.jetty.server.AbstractHttpConnection.content[m  [32mAbstractHttpConnection.java:  931[m
+                   [37morg.eclipse.jetty.server.AbstractHttpConnection$RequestHandler.content[m  [32mAbstractHttpConnection.java:  992[m
+                                              [37morg.eclipse.jetty.http.HttpParser.parseNext[m  [32m            HttpParser.java:  856[m
+                                         [37morg.eclipse.jetty.http.HttpParser.parseAvailable[m  [32m            HttpParser.java:  240[m
+                                      [37morg.eclipse.jetty.server.AsyncHttpConnection.handle[m  [32m   AsyncHttpConnection.java:   82[m
+                                    [37morg.eclipse.jetty.io.nio.SelectChannelEndPoint.handle[m  [32m SelectChannelEndPoint.java:  628[m
+                                     [37morg.eclipse.jetty.io.nio.SelectChannelEndPoint$1.run[m  [32m SelectChannelEndPoint.java:   52[m
+                                    [37morg.eclipse.jetty.util.thread.QueuedThreadPool.runJob[m  [32m      QueuedThreadPool.java:  608[m
+                                     [37morg.eclipse.jetty.util.thread.QueuedThreadPool$3.run[m  [32m      QueuedThreadPool.java:  543[m
+                                                                     [37mjava.lang.Thread.run[m  [32m                Thread.java:  744[m
+
+2014-Oct-26 07:32:31 +0700 QuestMac.local INFO [pretelan.handler] - pretelan is shutting down...
+2014-Oct-26 07:32:31 +0700 QuestMac.local INFO [pretelan.handler] - shutdown complete!
+2014-Oct-26 07:36:03 +0700 QuestMac.local INFO [pretelan.handler] - pretelan started successfully
+2014-Oct-26 07:40:00 +0700 QuestMac.local INFO [pretelan.handler] - pretelan is shutting down...
+2014-Oct-26 07:40:00 +0700 QuestMac.local INFO [pretelan.handler] - shutdown complete!
+2014-Oct-26 07:44:03 +0700 QuestMac.local INFO [pretelan.handler] - pretelan started successfully
+2014-Oct-26 07:45:34 +0700 QuestMac.local INFO [pretelan.handler] - pretelan is shutting down...
+2014-Oct-26 07:45:34 +0700 QuestMac.local INFO [pretelan.handler] - shutdown complete!
+2014-Oct-26 18:59:52 +0700 QuestMac.local INFO [pretelan.handler] - pretelan started successfully
