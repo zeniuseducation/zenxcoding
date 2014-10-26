@@ -84,7 +84,7 @@
   [response]
   (if (:status response)
     (render-component [post-signup]
-                      (selid "signup-form"))
+                      (selid "main-signup"))
     (.alert js/window (:message response))))
 
 (defn signup-act

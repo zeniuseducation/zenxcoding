@@ -1,7 +1,8 @@
 (ns pretelan.site.views
   (:require [pretelan.layout :as view]
             [pretelan.site.user :as user]
-            [pretelan.site.problem :as prob]))
+            [pretelan.site.problem :as prob]
+            [pretelan.site.tutorial :as tutorial]))
 
 (def ^:private guest-links
   [{:url "/login" :name "Lojeen"}
@@ -29,10 +30,44 @@
                         :message (str "Welcome " user)
                         :links member-links})))
 
+(def course-url "tutorials/course/")
+
+(defn courses
+  []
+  (view/render (res "courses.html")
+               {:title "These are your kawah candradimuka"
+                :page "courses"
+                :courses (-> #(assoc %
+                                :link (str course-url
+                                           (:zenid %)
+                                           "/"
+                                           (tutorial/first-tutorial-id (:zenid %))))
+                             (map (tutorial/courses)))
+                :links member-links}))
+
+(defn course
+  [course-id tutorial-id]
+  (view/render (res "course.html")
+               (let [course-info (tutorial/course course-id)
+                     course-tutorial (tutorial/tutorial tutorial-id)
+                     course-tutorials (-> #(assoc
+                                               :link (str course-url
+                                                          course-id
+                                                          "/"
+                                                          (:zenid %)))
+                                          (map (:tutorials course-info)))]
+                 {:title (str (:title course-info)
+                              " -- zenius league")
+                  :page "course"
+                  :course (assoc course-info
+                            :tutorials course-tutorials)
+                  :tutorial course-tutorial
+                  :links member-links})))
+
 (defn problems
   [user]
   (view/render (res "problems.html")
-               {:title "These are your quests... my padawan/padawati"
+               {:title "These are your quests, my padawan/padawati"
                 :problems (prob/problems user)
                 :page "problems"
                 :message (str "You are logged-in as " user)
@@ -43,7 +78,7 @@
   (let [{:keys [content no]}
         (prob/problem (read-string no))]
     (view/render (res "problem.html")
-                 {:title "These are quests... my padawan/padawati"
+                 {:title "Solve it for the wind... :P"
                   :content content
                   :no no
                   :page "problem"
@@ -85,6 +120,9 @@
                 :page "signup"
                 :message "Me attempting  signup"
                 :links guest-links}))
+
+
+
 
 
 

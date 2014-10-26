@@ -4,9 +4,10 @@
             [pretelan.util :refer [now]]
             [com.ashafa.clutch :as cl]))
 
-(def ^:private cdb (make-couch :cloudant-production))
+(def ^:private cdb (make-couch :local-couch))
 
 (defn all-users
+  "Retrieve all users in database with their complete information"
   []
   (map :value (cl/get-view cdb "user" "byEmail")))
 
@@ -24,10 +25,12 @@
           (map :value))))
 
 (defn selected-keys
+  "Invoke a pre-defined couch views for user design document"
   [target]
   (map :value (cl/get-view cdb "user" target)))
 
 (defn ranks
+  "Generate user's ranks"
   []
   (map #(assoc %1 :rank %2)
        (reverse (sort-by :score (selected-keys "forRank")))
@@ -53,8 +56,13 @@
   ([email password] (compare-password email password)))
 
 (defn total-users
+  "Returns the theoretical number of users in database"
   []
-  (:counter (:value (first (cl/get-view cdb "zenid" "byZtype" {:key "user"})))))
+  (->> {:key "user"}
+       (cl/get-view cdb "zenid" "byZtype")
+       first
+       :value
+       :counter))
 
 (defn sign-up
   "The act of adding user into database"
@@ -70,6 +78,7 @@
        (cl/put-document cdb)))
 
 (defn update-user
+  "Update the user's data"
   [user-map]
   (let [email (:email user-map)
         old-data (get-user email)
@@ -84,6 +93,11 @@
   "Check whether an email of a user exists in db"
   [email]
   (not (empty? (get-user email))))
+
+
+
+
+
 
 
 

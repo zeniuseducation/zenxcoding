@@ -1,0 +1,20 @@
+{% extends "selmer/mainpages/base.html" %}
+{% block foo %}
+<br/>
+<div id="tutorials" class="medium-12 columns">
+	<h4>{{course.title}}</h4>
+	<hr/>
+	<div id="side-tutorials" class="medium-3 columns panel callout">
+		<ol>
+			{% for tutorial in course.tutorials %}
+			<li><a href="{{tutorial.link}}">{{tutorial.title}}</a></li>
+			{% endfor %}
+		</ol>
+	</div>
+	<div id="tutorial" class="medium-9 columns">
+		<h4>{{tutorial.title}}</h4>
+		{{tutorial.content|safe}}
+	</div>
+</div>
+{% endblock %}
+

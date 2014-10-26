@@ -49,7 +49,7 @@
 
 (def app (app-handler
            ;; add your application routes here
-          [routes/home routes/problems
+          [routes/home routes/problems routes/tutorials
            routes/backoffice base-routes]
            ;; add custom middleware here
            :middleware (load-middleware)

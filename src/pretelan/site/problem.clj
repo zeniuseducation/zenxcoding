@@ -4,8 +4,14 @@
             [pretelan.util :refer [now]]
             [pretelan.site.user :as user :refer [total-users]]))
 
-(def cdb (make-couch :cloudant-production))
+(def cdb (make-couch :local-couch))
 
+;; When adding a problem you need to put :title :file and :answer
+;; (string). The files for problems should use numbers that indicates
+;; its # and input without the html extension, and put the file in
+;; problem-dir 
+
+;; The directory in which the problems files are resided
 (def problem-dir "resources/problem/")
 
 (defn elem
@@ -15,6 +21,7 @@
     false))
 
 (defn user-problems
+  "Returns the list of problems solved by a user"
   [user-email]
   (let [user-probs (->> {:key user-email}
                         (cl/get-view cdb "user" "byEmail")
@@ -23,7 +30,13 @@
                         (:problems))]
     (map :no user-probs)))
 
+(defn all-problems
+  []
+  (map :value (cl/get-view cdb "problem" "byNo")))
+
 (defn problems
+  "Returns a list of problems for a particular use, with the status
+  for that user"
   [user-email]
   (let [problems (->> (cl/get-view cdb "problem" "byNo")
                       (map :value))
@@ -36,6 +49,7 @@
          problems)))
 
 (defn add-problem
+  "Add a problem to the database"
   [problem-map]
   (let [zenid (get-zenid cdb "problem")]
     (->> {:no zenid
@@ -48,12 +62,15 @@
          (cl/put-document cdb))))
 
 (defn problem
+  "Returns a problem with id no"
   [no]
   (->> (cl/get-view cdb "problem" "byNo" {:key no})
        (first)
        (:value)))
 
 (defn problem-answered
+  "When problem is answered, there are things needed to updated, this
+  is the function to do so"
   [no]
   (let [old-data (problem no)
         solvers (inc (:solvers old-data))
@@ -63,10 +80,13 @@
                        :solvers solvers))))
 
 (defn answered-before?
+  "Check whether a user has answered a particular problem before"
   [email no]
   (elem no (user-problems email)))
 
 (defn user-answered
+  "When use answers a problem, there are few updated need to be made
+  to his/her account, this is the function to do so"
   [email no maxpoint]
   (let [old-data (user/get-user email)
         problems (conj (:problems old-data)
@@ -80,6 +100,9 @@
                              :solved solved}))))
 
 (defn check-answer?
+  "Returns true if user answer correctly and false otherwise,
+  becareful, this function has a lot of side effects which is updating
+  the data of a problem and user's own information in database"
   [no answer user-email]
   (let [problem-data (->> {:key no}
                           (cl/get-view cdb "problem" "byNo")

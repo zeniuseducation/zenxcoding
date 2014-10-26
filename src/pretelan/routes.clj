@@ -95,6 +95,14 @@
                                                             " masih salah "
                                                             (sess/get :username))}))))))
 
+(def tutorials
+  (context "/tutorials" request
+           (GET "/" request
+                (page/courses))
+           (GET "/course/:course-id/:tutorial-id" [course-id tutorial-id]
+                (page/course (read-string course-id)
+                             (read-string tutorial-id)))))
+
 (def backoffice
   (context "/backoffice" request
            (GET "/" request
