@@ -99,9 +99,9 @@
   (context "/tutorials" request
            (GET "/" request
                 (page/courses))
-           (GET "/course/:course-id/:tutorial-id" [course-id tutorial-id]
-                (page/course (read-string course-id)
-                             (read-string tutorial-id)))))
+           (GET "/course/:courseid/:tutorialid" [courseid tutorialid]
+                (page/course (read-string courseid)
+                             (read-string tutorialid)))))
 
 (def backoffice
   (context "/backoffice" request

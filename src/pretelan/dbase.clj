@@ -30,6 +30,10 @@
              (cl/put-document cdb))
         (inc counter))))
 
+(defn all-zenids
+  [cdb]
+  (map :value (cl/get-view cdb "zenid" "byZtype")))
+
 (defn create-type
   [cdb ztype]
   (if (empty? (cl/get-view cdb "zenid" "byZtype" {:key ztype}))

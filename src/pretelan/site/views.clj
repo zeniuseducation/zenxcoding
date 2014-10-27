@@ -30,7 +30,7 @@
                         :message (str "Welcome " user)
                         :links member-links})))
 
-(def course-url "tutorials/course/")
+(def course-url "/tutorials/course/")
 
 (defn courses
   []
@@ -50,7 +50,7 @@
   (view/render (res "course.html")
                (let [course-info (tutorial/course course-id)
                      course-tutorial (tutorial/tutorial tutorial-id)
-                     course-tutorials (-> #(assoc
+                     course-tutorials (-> #(assoc %
                                                :link (str course-url
                                                           course-id
                                                           "/"

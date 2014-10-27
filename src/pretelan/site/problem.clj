@@ -1,10 +1,10 @@
 (ns pretelan.site.problem
   (:require [pretelan.dbase :refer [make-couch get-zenid create-type]]
             [com.ashafa.clutch :as cl]
-            [pretelan.util :refer [now]]
+            [pretelan.util :refer [now cslurp]]
             [pretelan.site.user :as user :refer [total-users]]))
 
-(def cdb (make-couch :local-couch))
+(def cdb (make-couch :cloudant-production))
 
 ;; When adding a problem you need to put :title :file and :answer
 ;; (string). The files for problems should use numbers that indicates
@@ -50,15 +50,27 @@
 
 (defn add-problem
   "Add a problem to the database"
-  [problem-map]
-  (let [zenid (get-zenid cdb "problem")]
+  [problem-no]
+  (let [zenid (get-zenid cdb "problem")
+        problem-map (cslurp (str problem-dir "meta" problem-no ".edn"))]
     (->> {:no zenid
           :solvers 0
           :type "problem"
           :date (now)
           :link (str "problems/problem/" zenid)
-          :content (slurp (str problem-dir (:file problem-map) ".html"))}
+          :content (slurp (str problem-dir problem-no ".html"))}
          (merge problem-map)
+         (cl/put-document cdb))))
+
+(defn update-problem
+  [zenid problem-no]
+  (let [old-data (->> {:key zenid}
+                      (cl/get-view cdb "problem" "byNo")
+                      first :value)
+        problem-map (cslurp (str problem-dir "meta" problem-no ".edn"))]
+    (->> (slurp (str problem-dir problem-no ".html"))
+         (assoc problem-map :content)
+         (merge old-data)
          (cl/put-document cdb))))
 
 (defn problem

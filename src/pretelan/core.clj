@@ -15,7 +15,7 @@
 (defn parse-port [args]
   (if-let [port (->> args (remove #{"-dev"}) first)]
     (Integer/parseInt port)
-    3000))
+    18754))
 
 (defn- start-server [port args]
   (reset! server

@@ -2,10 +2,12 @@
 {% block foo %}
 <br/>
 <div id="courses" class="medium-12 columns">
+	<h3>Available courses on this site</h3>
+	<br>
 	{% for course in courses %}
 	<div id="{{course.zenid}}" class="medium-11 columns zpanel3">
 		<h3><a href="{{course.link}}">{{course.title}}</a></h3>
-		<h6>{{course.description}}</h6>
+		<p>{{course.description}}</p>
 	</div>
 	<br/>
 	{% endfor %}

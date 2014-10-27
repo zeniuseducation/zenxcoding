@@ -7,7 +7,7 @@
 
 (def template-path "selmer/")
 
-
+(parser/cache-off!)
 
 (deftype
   RenderableTemplate

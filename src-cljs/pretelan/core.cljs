@@ -88,15 +88,17 @@
     (.alert js/window (:message response))))
 
 (defn signup-act
-  "The act of posting the user-map through ajax for registration"
+  "The act of posting the user-map through ajax for registration."
   [user-map]
-  (POST "/signup-act"
-        {:params user-map
-         :handler signup-callback}))
+  (do (.alert js/window "Mungkin agak lama, sabar ya, jangan klik 2x")
+      (POST "/signup-act"
+            {:params user-map
+             :handler signup-callback})))
 
 (defn error-message
   []
-  [:p "Something wrong here!"])
+  [:div.zpanel4
+   [:h4 "Something wrong here! most likely the passwords do not match"]])
 
 (defn signup-form
   "The signup form component with the logic embedded"
@@ -234,10 +236,6 @@
   (POST "/account-act"
         {:params user-map
          :handler account-callback}))
-
-(defn error-message
-  []
-  [:p "Something wrong here!"])
 
 
 (defn account-form
