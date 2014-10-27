@@ -4,7 +4,8 @@
             [pretelan.site.tutorial :as tutorial]
             [pretelan.site.user :as user]
             [com.ashafa.clutch :as cl]
-            [pretelan.util :refer [now cslurp]]))
+            [pretelan.util :refer [now cslurp]]
+            [pretelan.layout :as view]))
 
 
 (def ^:private cdb (make-couch :cloudant-production))
@@ -31,3 +32,27 @@
                   ["user" "problem" "tutorial" "course"])]
     (cl/bulk-update cdb data)))
 
+(def ^:private guest-links
+  [{:url "/login" :name "Lojeen"}
+   {:url "/signup" :name "Sign-up"}])
+
+(def ^:private member-links
+  [{:url "/tutorials" :name "Tutorials"}
+   {:url "/problems" :name "Problems"}
+   {:url "/ranks" :name "Ranks"}
+   {:url "/account" :name "Account"}
+   {:url "/logout" :name "Logout"}])
+
+(def ^:private dir "mainpages/")
+
+(defn res [fname] (str dir fname))
+
+(defn ambil-problem
+  [fname]
+  (view/render (res "problem.html")
+               {:title "Solve it for the wind... :P"
+                :content (problem/problem-content fname)
+                :no fname
+                :page "problem"
+                :message (str "You are logged-in as " )
+                :links member-links}))

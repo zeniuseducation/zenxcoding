@@ -14,6 +14,10 @@
 ;; The directory in which the problems files are resided
 (def problem-dir "resources/problem/")
 
+(defn problem-content
+  [fname]
+  (slurp (str problem-dir fname ".html")))
+
 (defn elem
   [n ls]
   (if (some #(= % n) ls)

@@ -6,7 +6,8 @@
             [pretelan.backoffice.views :as bopage]
             [pretelan.site.views :as page]
             [pretelan.site.user :as user]
-            [pretelan.site.problem :as problem]))
+            [pretelan.site.problem :as problem]
+            [pretelan.site.addhoc :as addhoc]))
 
 "Some stuffs"
 
@@ -102,6 +103,11 @@
            (GET "/course/:courseid/:tutorialid" [courseid tutorialid]
                 (page/course (read-string courseid)
                              (read-string tutorialid)))))
+
+(def playground
+  (context "/playground" request
+           (GET "/:problem" [problem]
+                (addhoc/ambil-problem problem))))
 
 (def backoffice
   (context "/backoffice" request
