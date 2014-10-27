@@ -11,3 +11,8 @@
 
 (defn sola [lim]
   (reduce + (pmap #(rem (expt % %) big) (range 1 (inc lim)))))
+
+(defn sol6
+  [lim]
+  (for [i (range 1 (inc lim))]
+    (+ 120 (* i 12))))

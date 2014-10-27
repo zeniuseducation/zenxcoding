@@ -27,14 +27,14 @@
 (defn normalize-user
   [email]
   (let [old-data (->> {:key email}
-                      (cl/get-view cdb "user" "email")
+                      (cl/get-view cdb "user" "byEmail")
                       first :value)
         problems (->> (:problems old-data)
                       distinct
                       (into []))
         solved (count problems)
         score (- (:score old-data)
-                 (* 95 (- (count (:problems old-data))
+                 (* 50 (- (count (:problems old-data))
                           (count problems))))]
     (cl/put-document cdb (merge old-data
                                 {:problems problems
