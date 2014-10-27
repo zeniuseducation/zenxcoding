@@ -10,4 +10,4 @@ config.edn
 /target
 .nrepl-port
 /src/pretelan/config.clj
-/resources/problem
+/resources/problem/meta*.edn
