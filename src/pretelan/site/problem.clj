@@ -66,6 +66,19 @@
          (merge problem-map)
          (cl/put-document cdb))))
 
+(defn add-problem-special
+  "Add a problem to the database"
+  [zenid problem-no]
+  (let [problem-map (cslurp (str problem-dir "meta" problem-no ".edn"))]
+    (->> {:no zenid
+          :solvers 0
+          :type "problem"
+          :date (now)
+          :link (str "problems/problem/" zenid)
+          :content (slurp (str problem-dir problem-no ".html"))}
+         (merge problem-map)
+         (cl/put-document cdb))))
+
 (defn update-problem
   [zenid problem-no]
   (let [old-data (->> {:key zenid}
@@ -94,6 +107,22 @@
     (cl/put-document cdb
                      (assoc old-data
                        :solvers solvers))))
+
+(defn helper-normalize-problems
+  [problem-map old-users]
+  (let [{:keys [solvers no]} problem-map
+        counter (->> (mapcat :problems old-users)
+                     (filter #(= (:no %) no))
+                     count)]
+    (assoc problem-map :solvers counter)))
+
+(defn normalize-problems
+  []
+  (let [old-data (all-problems)
+        old-users (user/all-users)
+        bulk-data (map #(helper-normalize-problems % old-users)
+                       old-data)]
+    (cl/bulk-update cdb bulk-data)))
 
 (defn answered-before?
   "Check whether a user has answered a particular problem before"
@@ -139,6 +168,12 @@
                                       total-usrs))))
             correct?))
       correct?)))
+
+
+
+
+
+
 
 
 

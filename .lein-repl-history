@@ -11,3 +11,4 @@
 (take 30 (iterate #(vector (+ (first %) (second %)) (first %)) [1,1]))
 (ns pretelan.site.problem)
 (add-problem "005")
+(start-server)

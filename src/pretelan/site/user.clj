@@ -25,9 +25,9 @@
           (map :value))))
 
 (defn normalize-user
-  [email]
-  (let [old-data (->> {:key email}
-                      (cl/get-view cdb "user" "byEmail")
+  [username]
+  (let [old-data (->> {:key username}
+                      (cl/get-view cdb "user" "byUsername")
                       first :value)
         problems (->> (:problems old-data)
                       distinct
@@ -40,6 +40,27 @@
                                 {:problems problems
                                  :score score
                                  :solved solved}))))
+
+[[3,9],[5,15],[2,5],[-1,5],[-2,2],[5,7],[9,21],[8,19],[-5,-12],[4,9],[6,12],[7,15],
+ [-7,-19],[-9,-18],[11,21],[12,32],[15,130],[21,45],[-19,-15],[-10,17],[-7,-10]]
+
+(defn helper-normalize
+  [user-map]
+  (let [problems (->> (:problems user-map)
+                      distinct
+                      (into []))
+        solved (count problems)
+        score (- (:score user-map)
+                 (* 50 (- (count (:problems user-map))
+                          (count problems))))]
+    (merge user-map
+           {:score score :problems problems :solved solved})))
+
+(defn normalize-all-users
+  []
+  (let [old-data (all-users)
+        updated-users (map helper-normalize old-data)]
+    (cl/bulk-update cdb updated-users)))
 
 (defn selected-keys
   "Invoke a pre-defined couch views for user design document"
@@ -96,15 +117,15 @@
 
 (defn update-user
   "Update the user's data"
-  [user-map]
-  (let [email (:email user-map)
-        old-data (get-user email)
-        final-data (assoc user-map
-                     :password
-                     (crip/encrypt (:password user-map)))]
+  [email user-map]
+  (let [old-data (get-user email)
+        final-data (merge user-map
+                          {:password
+                           (crip/encrypt
+                            (:password user-map))})]
     (cl/put-document cdb
                      (merge old-data
-                            user-map))))
+                            final-data))))
 
 (defn exists?
   "Check whether an email of a user exists in db"
