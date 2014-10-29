@@ -124,6 +124,7 @@
                        old-data)]
     (cl/bulk-update cdb bulk-data)))
 
+
 (defn answered-before?
   "Check whether a user has answered a particular problem before"
   [email no]

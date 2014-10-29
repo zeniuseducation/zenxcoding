@@ -15,7 +15,7 @@
   "Check whether the certa in user is valid for admin access"
   ([admin password]
      (and (= admin "zenius")
-          (= password "zenimomos")))
+          (= password "zenius")))
   ([admin]
      (= admin "zenius")))
 
@@ -45,7 +45,8 @@
            (GET "/signup" request
                 (page/sign-up))
            (POST "/account-act" request
-                 (do (user/update-user (:params request))
+                 (do (user/update-user (:email (:params request))
+                                       (:params request))
                      (resp/edn {:status true :message "sukses"})))
            (POST "/login-act" request
                  (let [{:keys [email password]}
