@@ -17,7 +17,10 @@
 
 (def ^:private dir "mainpages/")
 
-(defn res [fname] (str dir fname))
+(defn res
+  "Returns the required resources for the specific fname"
+  [fname]
+  (str dir fname))
 
 (defn home
   ([] (view/render (res "home.html")
@@ -35,7 +38,7 @@
 (defn courses
   []
   (view/render (res "courses.html")
-               {:title "These are your kawah candradimuka"
+               {:title "Veritas vos liberabos!"
                 :page "courses"
                 :courses (-> #(assoc %
                                 :link (str course-url

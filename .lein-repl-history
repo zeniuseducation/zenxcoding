@@ -12,3 +12,5 @@
 (ns pretelan.site.problem)
 (add-problem "005")
 (start-server)
+(stop-server)
+(start-server)

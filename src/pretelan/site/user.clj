@@ -41,9 +41,6 @@
                                  :score score
                                  :solved solved}))))
 
-[[3,9],[5,15],[2,5],[-1,5],[-2,2],[5,7],[9,21],[8,19],[-5,-12],[4,9],[6,12],[7,15],
- [-7,-19],[-9,-18],[11,21],[12,32],[15,130],[21,45],[-19,-15],[-10,17],[-7,-10]]
-
 (defn helper-normalize
   [user-map]
   (let [problems (->> (:problems user-map)
@@ -119,18 +116,22 @@
   "Update the user's data"
   [email user-map]
   (let [old-data (get-user email)
-        final-data (merge user-map
-                          {:password
-                           (crip/encrypt
-                            (:password user-map))})]
+        final-data (->> {:password (crip/encrypt (:password user-map))}
+                        (merge user-map))]
     (cl/put-document cdb
-                     (merge old-data
-                            final-data))))
+                     (merge old-data final-data))))
 
 (defn exists?
   "Check whether an email of a user exists in db"
   [email]
-  (not (empty? (get-user email))))
+  (not-empty (get-user email)))
+
+(defn user-problems
+  [username]
+  (->> (get-user 1 username)
+       first
+       (:problems)
+       (sort-by :no)))
 
 
 
