@@ -170,6 +170,14 @@
             correct?))
       correct?)))
 
+(defn problem-solvers
+  [no]
+  (let [allusers (user/all-users)]
+    (->> (-> #(select-keys % [:username :nama :problems])
+             (map allusers))
+         (filter #(elem no (map :no (:problems %))))
+         (map #(dissoc % :problems)))))
+
 
 
 
