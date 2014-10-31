@@ -10,6 +10,7 @@ gerakB t
   | otherwise = rem (6 * t) 100
   where x = div (6* t) 100
 
+-- lim is the number of ketemuan AB
 ketemuan lim = helper 0 []
   where helper i res
           | (length res) == lim = res
