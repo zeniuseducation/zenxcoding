@@ -107,8 +107,10 @@
 
 (def playground
   (context "/playground" request
-           (GET "/:problem" [problem]
-                (addhoc/ambil-problem problem))))
+           (GET "/problem/:problem" [problem]
+                (addhoc/ambil-problem problem))
+           (GET "/tutorial/:tutorial" [tutorial]
+                (addhoc/ambil-tutorial tutorial))))
 
 (def backoffice
   (context "/backoffice" request

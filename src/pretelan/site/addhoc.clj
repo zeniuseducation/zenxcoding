@@ -56,3 +56,20 @@
                 :page "problem"
                 :message (str "You are logged-in as " )
                 :links member-links}))
+
+(defn ambil-tutorial
+  [fname]
+  (view/render (res "course.html")
+               {:title "Tutorial brother"
+                :tutorial {:content (tutorial/tutorial-content fname)}
+                :no fname
+                :page "tutorial"
+                :message (str "You are logged-in as " )
+                :links member-links}))
+
+
+
+
+
+
+

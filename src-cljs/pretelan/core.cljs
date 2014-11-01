@@ -1,6 +1,7 @@
 (ns pretelan.core
   (:require [reagent.core :as reagent :refer [atom render-component]]
-            [ajax.core :refer [GET POST]]))
+            [ajax.core :refer [GET POST]]
+            [clojure.string :as cs]))
 
 (def current-user (atom {}))
 
@@ -8,6 +9,11 @@
   "selector by id"
   [id]
   (.getElementById js/document id))
+
+(defn seltag
+  "selector by tag"
+  [tagname]
+  (.getElementsByTagName js/document tagname))
 
 (defn get-page
   "Returns the classname of a body to identify which page are we in"
@@ -325,6 +331,8 @@
   (GET "/request-user"
        {:handler handle-user}))
 
+
+
 (defn start
   "The act of mounting necessary components based on the page"
   [page]
@@ -340,6 +348,8 @@
     "problems" nil))
 
 (start (get-page))
+
+
 
 
 
