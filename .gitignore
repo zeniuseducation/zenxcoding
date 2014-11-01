@@ -11,3 +11,4 @@ config.edn
 .nrepl-port
 /src/pretelan/config.clj
 /resources/problem/meta*.edn
+*.hs
