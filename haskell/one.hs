@@ -18,10 +18,19 @@ ketemuan lim = helper 0 []
           | otherwise = helper (succ i) res
 
 sp_poli = [[34,16],[43,13],[23,12],[20,10],[12,9],[234,5],[34,3],[54,2]]
+poli1 = [[43,34],[54,23],[54,19],[45,16],[5,14],[453,12],[34,8],[54,0]] 
 
 polinom x [] = 0
 polinom x ((u:v: []) :ps)
   | null ps = u * (x^v)
   | otherwise = (u * (x^v)) + polinom x ps
 
+turunan_suku (x:y: [])
+  | y == 0 = [0,0]
+  | otherwise = [x*y, (pred y)]
+
+turunan_pol pol = filter (\x -> 0 /= (head x)) all_elmts
+  where all_elmts = map turunan_suku pol
+
+turunan i pol = (iterate turunan_pol pol) !! i
 

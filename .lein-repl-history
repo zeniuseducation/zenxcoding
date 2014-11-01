@@ -16,3 +16,4 @@
 (start-server)
 exit
 (start-server)
+(stop-server)
