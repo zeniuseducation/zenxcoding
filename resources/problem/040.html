@@ -1,0 +1,44 @@
+<h5>
+	Boboho membuat suatu sistem "segitiga" menyerupai segitiga pascal, berhubung beliau (dalam hal ini boboho) bosan
+	dengan baris pertama yang selalu [1,1], ia membuat aturan sebagai berikut:
+	<br/><br/>
+	<ul>
+		<li>
+			row(1) = [234,432]
+		</li>
+		<li>
+			row(2) = [432,423,423]
+		</li>
+		<li>
+			row(3) = [645,6,456,354]
+		</li>
+		<li>
+			row(4) = [456,456,657,78,423]
+		</li>
+		<li>
+			row(5) = [576,534,243,5234,456,243]
+		</li>
+	</ul>
+	Sedangkan aturan untuk row(n) untuk n > 5 sama seperti aturan pembentukan pascal's triangle yang adalah sebagai
+	berikut:
+	<br/>
+	<ul>
+		<li>
+			Banyaknya elemen di $ row(n) = n+1 $
+		</li>
+		<li>
+			Jika E(a,n) menyatakan elemen ke a di row ke n, maka
+		</li>
+		<li>
+			$ E(1,n) = E(1,n-1) $
+		</li>
+		<li>
+			$ E(n+1, n) = E(n, n-1) $
+		</li>
+		<li>
+			Untuk $ 1 < i < n+1 $ pada setiap row, berlaku $ E(i,n) = E(i-1,n-1) + E(i,n-1) $
+		</li>
+	</ul>
+	<br/>
+	Berapakah jumlah semua elemen pada row(50)?
+</h5>
