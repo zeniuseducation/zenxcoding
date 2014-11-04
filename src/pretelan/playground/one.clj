@@ -16,3 +16,4 @@
   [lim]
   (for [i (range 1 (inc lim))]
     (+ 120 (* i 12))))
+

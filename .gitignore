@@ -12,3 +12,4 @@ config.edn
 /src/pretelan/config.clj
 /resources/problem/meta*.edn
 *.hs
+*.hi
