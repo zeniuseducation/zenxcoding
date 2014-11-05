@@ -13,3 +13,4 @@ config.edn
 /resources/problem/meta*.edn
 *.hs
 *.hi
+*.o

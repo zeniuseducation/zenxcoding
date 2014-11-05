@@ -131,7 +131,9 @@
   (->> (get-user 1 username)
        first
        (:problems)
-       (sort-by :no)))
+       (sort-by :date)))
+
+
 
 
 
