@@ -64,8 +64,20 @@
                 :tutorial {:content (tutorial/tutorial-content fname)}
                 :no fname
                 :page "tutorial"
-                :message (str "You are logged-in as " )
+                :message (str "You are logged-in as  " )
                 :links member-links}))
+
+(defn page-problem
+  [problem-id]
+  (let [{:keys [no title content]}
+        (->> (cl/get-view cdb "problem" "byNo" {:key problem-id})
+             first :value)]
+    (view/render (res "problem.html")
+                 {:title title
+                  :content content
+                  :no no
+                  :page "problem"
+                  :links member-links})))
 
 
 

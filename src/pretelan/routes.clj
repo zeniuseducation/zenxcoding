@@ -19,6 +19,7 @@
   ([admin]
      (= admin "zenius")))
 
+
 (def home
   (context "" request
            (GET "/" request
@@ -74,6 +75,7 @@
                          (resp/edn {:status true
                                     :message "Welcome to Zenius League!!"})))))))
 
+
 (def problems
   (context "/problems" request
            (GET "/" request
@@ -97,6 +99,7 @@
                                                             " masih salah "
                                                             (sess/get :username))}))))))
 
+
 (def tutorials
   (context "/tutorials" request
            (GET "/" request
@@ -110,7 +113,10 @@
            (GET "/problem/:problem" [problem]
                 (addhoc/ambil-problem problem))
            (GET "/tutorial/:tutorial" [tutorial]
-                (addhoc/ambil-tutorial tutorial))))
+                (addhoc/ambil-tutorial tutorial))
+           (GET "/exp/:problem" [problem]
+                (addhoc/page-problem (read-string problem)))))
+
 
 (def backoffice
   (context "/backoffice" request

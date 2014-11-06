@@ -55,6 +55,7 @@
          :handler login-callback
          :error-handler login-error-callback}))
 
+
 (defn login-form
   "Login-form component with logic to submit the form through ajax"
   []
@@ -78,6 +79,7 @@
                  :id       "login-button"
                  :on-click #(login-act @email @password)}
         "Login"]])))
+
 
 (defn post-signup
   []
@@ -105,6 +107,7 @@
   []
   [:div.zpanel4
    [:h4 "Something wrong here! most likely the passwords do not match"]])
+
 
 (defn signup-form
   "The signup form component with the logic embedded"
@@ -242,6 +245,7 @@
   (POST "/account-act"
         {:params user-map
          :handler account-callback}))
+
 
 
 (defn account-form
