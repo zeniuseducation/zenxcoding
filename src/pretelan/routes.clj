@@ -21,59 +21,60 @@
 
 
 (def home
-  (context "" request
-           (GET "/" request
-                (if (sess/get :email)
-                  (page/home (sess/get :username))
-                  (page/home)))
-           (GET "/account" request
-                (if (sess/get :email)
-                  (page/account (sess/get :username)
-                                (sess/get :email))
-                  (resp/redirect "/login")))
-           (GET "/login" request
-                (page/login))
-           (GET "/logout" request
-                (do (sess/clear!)
-                    (resp/redirect "/")))
-           (GET "/ranks" request
-                (do (println "Ini ga error kok")
-                    (page/ranks)))
-           (GET "/request-user" request
-                (let [email (sess/get :email)
-                      user (user/get-user email)]
-                  (resp/edn (dissoc user :password))))
-           (GET "/signup" request
-                (page/sign-up))
-           (POST "/account-act" request
-                 (do (user/update-user (:email (:params request))
-                                       (:params request))
-                     (resp/edn {:status true :message "sukses"})))
-           (POST "/login-act" request
-                 (let [{:keys [email password]}
-                       (:params request)]
-                   (if-let [{:keys [email username]}
-                            (user/valid email password)]
-                     (do (sess/put! :email email)
-                         (sess/put! :username username)
-                         (resp/edn {:status  true
-                                    :message "May the codes be with you..."}))
-                     (resp/edn {:status false
-                                :message "Email doesnt exist or wrong password"}))))
-           (POST "/signup-act" request
-                 (let [{:keys [username email  password nama twitter languages]}
-                       (:params request)]
-                   (if (user/exists? email)
-                     (resp/edn {:status false :message "Email already used"})
-                     (do (println (:params request))
-                         (user/sign-up {:username  username
-                                        :email     email
-                                        :nama      nama
-                                        :twitter   twitter
-                                        :languages languages
-                                        :password  password})
-                         (resp/edn {:status true
-                                    :message "Welcome to Zenius League!!"})))))))
+  (context
+   "" request
+   (GET "/" request
+        (if (sess/get :email)
+          (page/home (sess/get :username))
+          (page/home)))
+   (GET "/account" request
+        (if (sess/get :email)
+          (page/account (sess/get :username)
+                        (sess/get :email))
+          (resp/redirect "/login")))
+   (GET "/login" request
+        (page/login))
+   (GET "/logout" request
+        (do (sess/clear!)
+            (resp/redirect "/")))
+   (GET "/ranks" request
+        (do (println "Ini ga error kok")
+            (page/ranks)))
+   (GET "/request-user" request
+        (let [email (sess/get :email)
+              user (user/get-user email)]
+          (resp/edn (dissoc user :password))))
+   (GET "/signup" request
+        (page/sign-up))
+   (POST "/account-act" request
+         (do (user/update-user (:email (:params request))
+                               (:params request))
+             (resp/edn {:status true :message "sukses"})))
+   (POST "/login-act" request
+         (let [{:keys [email password]}
+               (:params request)]
+           (if-let [{:keys [email username]}
+                    (user/valid email password)]
+             (do (sess/put! :email email)
+                 (sess/put! :username username)
+                 (resp/edn {:status  true
+                            :message "May the codes be with you..."}))
+             (resp/edn {:status false
+                        :message "Email doesnt exist or wrong password"}))))
+   (POST "/signup-act" request
+         (let [{:keys [username email  password nama twitter languages]}
+               (:params request)]
+           (if (user/exists? email)
+             (resp/edn {:status false :message "Email already used"})
+             (do (println (:params request))
+                 (user/sign-up {:username  username
+                                :email     email
+                                :nama      nama
+                                :twitter   twitter
+                                :languages languages
+                                :password  password})
+                 (resp/edn {:status true
+                            :message "Welcome to Zenius League!!"})))))))
 
 
 (def problems
